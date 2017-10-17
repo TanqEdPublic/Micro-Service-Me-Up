@@ -14,5 +14,8 @@ eureka:
 
 
 zuul:
-  ignored-services: '*'
-  #routes:
+  #ignored-services: '*'
+  routes:
+    demo:
+      path: /demo/**
+      serviceId: DEMOMICROSERVER
