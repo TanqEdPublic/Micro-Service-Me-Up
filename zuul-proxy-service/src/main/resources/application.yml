@@ -8,6 +8,7 @@ spring:
 eureka:
   instance:
     prefer-ip-address: true
+    leaseRenewalIntervalInSeconds: 5   # DO NOT DO THIS IN PRODUCTION
   client:
     serviceUrl:
       defaultZone: http://34.215.110.22:8080/eureka/
