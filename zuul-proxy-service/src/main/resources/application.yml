@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   application:
@@ -7,12 +7,14 @@ spring:
 
 eureka:
   instance:
-    prefer-ip-address: true
-    leaseRenewalIntervalInSeconds: 5   # DO NOT DO THIS IN PRODUCTION
+    prefer-ip-address: true # When the application registers with eureka, it will use its IP Address rather than its hostname.
+    leaseRenewalIntervalInSeconds: 5   # how often client send heartbeats to Eureka server
   client:
+    #registerWithEureka: true # default
+    #fetchRegistry: true # default
     serviceUrl:
       defaultZone: http://34.215.110.22:8080/eureka/
-
+      #defaultZone: http://localhost:8080/eureka/
 
 zuul:
   #ignored-services: '*'

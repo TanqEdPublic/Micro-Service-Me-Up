@@ -12,7 +12,8 @@ import org.springframework.stereotype.Controller;
 public class ZuulProxyServiceApplication {
 
 	public static void main(String[] args) {
-
+		// Config service here?
+		System.setProperty("spring.config.name", "application");
 		SpringApplication.run(ZuulProxyServiceApplication.class, args);
 	}
 }

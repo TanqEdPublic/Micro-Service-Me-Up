@@ -1,12 +1,21 @@
 # Configure this Discovery Server
-eureka:
-  server:
-    eviction-interval-timer-in-ms: 1000
-  instance:
-    hostname: localhost
-  client:  # Not a client, don't register with yourself
-    registerWithEureka: false
-    fetchRegistry: false
 
 server:
   port: 8080   # HTTP (Tomcat) port
+
+eureka:
+  server: # nothing useful found for project yet
+
+  instance:
+    hostname: localhost # is not needed if you are running on a machine that knows its own hostname
+    leaseExpirationDurationInSeconds: 10 # indicates the time that eureka server waits since it received the last
+                                        # heartbeat before it can remove this instance from its view
+
+    # eureka.instance.appname=${spring.application.name}
+
+  client:  # Not a client, don't register with yourself
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+          defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    # Notice that the serviceUrl is pointing to the same host as the local instance.
