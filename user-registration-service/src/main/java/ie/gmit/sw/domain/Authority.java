@@ -12,9 +12,9 @@ public class Authority {
 
     @GraphId private Long id;
 
-    @Property private AuthorityName name;
+    @Property private String name;
 
-    @Relationship(type = "HAS-A", direction = Relationship.UNDIRECTED)
+    @Relationship(type = "HAS_A", direction = Relationship.UNDIRECTED)
     private Set<User> users;
 
     public Long getId() {
@@ -25,11 +25,11 @@ public class Authority {
         this.id = id;
     }
 
-    public AuthorityName getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(AuthorityName name) {
+    public void setName(String name) {
         this.name = name;
     }
 
