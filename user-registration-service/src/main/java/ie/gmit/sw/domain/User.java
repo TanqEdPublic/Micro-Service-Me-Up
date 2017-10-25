@@ -1,6 +1,5 @@
 package ie.gmit.sw.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
@@ -30,6 +29,12 @@ public class User{
         this.email = email;
         this.enabled = enabled;
         this.authorities = authorities;
+    }
+
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
     }
 
     public Long getId() {

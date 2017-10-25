@@ -3,9 +3,6 @@ package ie.gmit.sw.domain;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
-import org.neo4j.ogm.annotation.Relationship;
-
-import java.util.Set;
 
 @NodeEntity
 public class Authority {
@@ -13,6 +10,13 @@ public class Authority {
     @GraphId private Long id;
 
     @Property private String name;
+
+    public Authority() {
+    }
+
+    public Authority(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;

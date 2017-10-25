@@ -1,5 +1,6 @@
 package ie.gmit.sw.services;
 
+import ie.gmit.sw.domain.Authority;
 import ie.gmit.sw.domain.User;
 import ie.gmit.sw.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,4 +21,12 @@ public class RegistrationService {
         System.out.println(user.getUsername());
         return user;
     }
+
+    public void newUser(User user){
+        user.setAuthority(new Authority("PENDING_USER"));
+        user.setEnabled(false);
+        userRepo.save(user);
+    }
+
+
 }
