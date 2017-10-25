@@ -1,5 +1,6 @@
 package ie.gmit.sw.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
@@ -16,7 +17,7 @@ public class User{
     private String password;
     private String email;
     private boolean enabled;
-    @Relationship(type = "HAS-A", direction = Relationship.UNDIRECTED)
+    @Relationship(type = "HAS-A")
     private Set<Authority> authorities;
 
     public User() {
@@ -73,6 +74,10 @@ public class User{
 
     public Set<Authority> getAuthorities() {
         return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     public void setAuthority(Authority authority) {

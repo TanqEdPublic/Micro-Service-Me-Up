@@ -1,7 +1,8 @@
 spring:
-  applicatiom:
+  application:
     name: userregistration
   data:
     neo4j:
       username: neo4j
       password: 1234
+      uri: "http://52.16.139.0:7474"

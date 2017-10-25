@@ -14,9 +14,6 @@ public class Authority {
 
     @Property private String name;
 
-    @Relationship(type = "HAS_A", direction = Relationship.UNDIRECTED)
-    private Set<User> users;
-
     public Long getId() {
         return id;
     }
@@ -33,11 +30,4 @@ public class Authority {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 }
