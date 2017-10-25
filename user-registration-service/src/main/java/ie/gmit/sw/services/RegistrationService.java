@@ -6,6 +6,9 @@ import ie.gmit.sw.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class RegistrationService {
 
@@ -28,5 +31,9 @@ public class RegistrationService {
         userRepo.save(user);
     }
 
+    public List<User> allUsers(){
+
+        return (ArrayList) userRepo.findAll();
+    }
 
 }

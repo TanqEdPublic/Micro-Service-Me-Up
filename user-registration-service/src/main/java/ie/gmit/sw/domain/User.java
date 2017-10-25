@@ -1,8 +1,7 @@
 package ie.gmit.sw.domain;
 
-import org.neo4j.ogm.annotation.GraphId;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.*;
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,13 +9,15 @@ import java.util.Set;
 @NodeEntity
 public class User{
 
-    @GraphId private Long id;
+    @GraphId
+    private Long id;
 
+    @Index(unique = true, primary = true)
     private String username;
     private String password;
     private String email;
     private boolean enabled;
-    @Relationship(type = "HAS-A")
+    @Relationship(type = "HAS_A")
     private Set<Authority> authorities;
 
     public User() {
