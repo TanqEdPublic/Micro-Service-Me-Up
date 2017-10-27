@@ -1,8 +1,20 @@
 spring:
   application:
-    name: userregistration
+    name: registration-service
   data:
     neo4j:
       username: neo4j
       password: 1234
       uri: "http://52.16.139.0:7474"
+
+eureka:
+    instance:
+        prefer-ip-address: true # When the application registers with eureka,
+                                # it will use its IP Address rather than its hostname.
+        leaseRenewalIntervalInSeconds: 5   # How often client send heartbeats to Eureka server
+    client:
+        serviceUrl:
+            # It is possible to configure service urls so that client uses closest zone of availability
+            # Check for references: https://github.com/spring-cloud/spring-cloud-netflix/issues/1327
+            # defaultZone: http://localhost:8080/eureka/ # address of an Eureka Server
+            defaultZone: http://34.215.110.22:8080/eureka/

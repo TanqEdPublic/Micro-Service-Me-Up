@@ -1,10 +1,12 @@
 package ie.gmit.sw.domain;
 
-import org.neo4j.ogm.annotation.*;
-
+import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.Indexed;
+import org.springframework.data.neo4j.annotation.NodeEntity;
 
 import java.util.HashSet;
 import java.util.Set;
+
 
 @NodeEntity
 public class User{
@@ -12,12 +14,13 @@ public class User{
     @GraphId
     private Long id;
 
-    @Index(unique = true, primary = true)
+    @Indexed(unique = true)
     private String username;
     private String password;
     private String email;
     private boolean enabled;
-    @Relationship(type = "HAS_A")
+
+
     private Set<Authority> authorities;
 
     public User() {
@@ -81,10 +84,10 @@ public class User{
     public Set<Authority> getAuthorities() {
         return authorities;
     }
-
+/*
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
-    }
+    }*/
 
     public void setAuthority(Authority authority) {
         if(this.authorities == null){

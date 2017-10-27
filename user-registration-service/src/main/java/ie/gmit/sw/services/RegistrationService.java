@@ -4,6 +4,7 @@ import ie.gmit.sw.domain.Authority;
 import ie.gmit.sw.domain.User;
 import ie.gmit.sw.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,12 +13,17 @@ import java.util.List;
 @Service
 public class RegistrationService {
 
+    @Autowired
+    @Lazy
     private UserRepository userRepo;
 
-    @Autowired
-    public RegistrationService(UserRepository userRepo) {
-        this.userRepo = userRepo;
+    public RegistrationService() {
     }
+
+    //    @Autowired
+//    public RegistrationService(UserRepository userRepo) {
+//        this.userRepo = userRepo;
+//    }
 
     public User findUser(String username){
         User user = userRepo.findByUsername(username);

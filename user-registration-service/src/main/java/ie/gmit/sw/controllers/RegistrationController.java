@@ -18,19 +18,19 @@ public class RegistrationController {
         this.service = service;
     }
 
-    @GetMapping("/user/{name}")
+    @RequestMapping("/user/{name}")
     public User getUser(@PathVariable String name){
         return service.findUser(name);
     }
 
-    @PostMapping("/user/new")
+    @RequestMapping(value = "/user/new", method = RequestMethod.POST)
     public User newUser(@RequestBody NewUserRequest user){
         User newUser = new User(user.getUsername(), user.getPassword(), user.getEmail());
         service.newUser(newUser);
         return service.findUser(user.getUsername());
     }
 
-    @GetMapping("/users")
+    @RequestMapping("/users")
     public List<User> allUsers(){
         return service.allUsers();
     }

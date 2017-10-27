@@ -22,3 +22,6 @@ zuul:
     demo:
       path: /demo/**
       serviceId: DEMOMICROSERVER
+    reg:
+      path: /reg/**
+      serviceId: registration-service
