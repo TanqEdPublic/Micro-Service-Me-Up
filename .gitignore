@@ -4,7 +4,7 @@
 *.recommenders
 .classpath
 .project
-.iml
+*.iml
 
 # OS stuff
 

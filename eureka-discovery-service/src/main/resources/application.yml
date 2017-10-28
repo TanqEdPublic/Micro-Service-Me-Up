@@ -1,7 +1,7 @@
 # Configure this Discovery Server
 
 server:
-  port: 8080   # HTTP (Tomcat) port
+  port: 8085   # HTTP (Tomcat) port
 
 eureka:
   server: # nothing useful found for project yet
