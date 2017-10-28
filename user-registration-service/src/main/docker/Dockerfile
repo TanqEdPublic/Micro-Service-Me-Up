@@ -1,6 +1,6 @@
 FROM frolvlad/alpine-oraclejdk8:slim
 VOLUME /tmp
-ADD profile-service-0.0.1-SNAPSHOT.jar app.jar
+ADD user-registration-service-0.0.1-SNAPSHOT.jar app.jar
 RUN sh -c 'touch /app.jar'
 EXPOSE 8091
 ENV JAVA_OPTS=""
