@@ -1,8 +1,9 @@
 package ie.gmit.sw.domain;
 
-import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.Indexed;
-import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.Index;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,13 +15,13 @@ public class User{
     @GraphId
     private Long id;
 
-    @Indexed(unique = true)
+    @Index(unique = true)
     private String username;
     private String password;
     private String email;
     private boolean enabled;
 
-
+    @Relationship(type = "ROLE", direction = Relationship.OUTGOING)
     private Set<Authority> authorities;
 
     public User() {

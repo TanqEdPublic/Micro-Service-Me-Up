@@ -1,8 +1,8 @@
 package ie.gmit.sw.domain;
 
-import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.GraphProperty;
-import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
 @NodeEntity
 public class Authority {
@@ -10,11 +10,11 @@ public class Authority {
     @GraphId
     private Long id;
 
-    @GraphProperty
     private String name;
 
     public Authority() {
     }
+
 
     public Authority(String name) {
         this.name = name;
