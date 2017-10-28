@@ -17,3 +17,6 @@ eureka:
             # Check for references: https://github.com/spring-cloud/spring-cloud-netflix/issues/1327
             # defaultZone: http://localhost:8080/eureka/ # address of an Eureka Server
             defaultZone: http://34.215.110.22:8080/eureka/
+
+server:
+  port: 8092
