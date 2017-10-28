@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8086 # Zuul will run on 8086
 
 spring:
   application:
@@ -13,8 +13,8 @@ eureka:
     #registerWithEureka: true # default
     #fetchRegistry: true # default
     serviceUrl:
-      defaultZone: http://34.215.110.22:8080/eureka/
-      #defaultZone: http://localhost:8080/eureka/
+      defaultZone: http://34.215.110.22:8085/eureka/
+      #defaultZone: http://localhost:8085/eureka/
 
 zuul:
   #ignored-services: '*'
@@ -25,3 +25,6 @@ zuul:
     reg:
       path: /reg/**
       serviceId: registration-service
+    profile:
+      path: /profile/**
+      serviceId: profile-service
