@@ -13,7 +13,7 @@ eureka:
     #registerWithEureka: true # true by default
     #fetchRegistry: true # true by default
     serviceUrl:
-      defaultZone: http://ec2-34-214-152-29.us-west-2.compute.amazonaws.com:8085/eureka/
+      defaultZone: http://ec2-34-215-110-22.us-west-2.compute.amazonaws.com:8085/eureka/
       #defaultZone: http://localhost:8085/eureka/
 
 hystrix:
