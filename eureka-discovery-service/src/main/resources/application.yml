@@ -7,15 +7,18 @@ eureka:
   server: # nothing useful found for project yet
 
   instance:
-    hostname: localhost # is not needed if you are running on a machine that knows its own hostname
+    preferIpAddress: false
     leaseExpirationDurationInSeconds: 10 # indicates the time that eureka server waits since it received the last
                                         # heartbeat before it can remove this instance from its view
+  datacenter: cloud
+  enableSelfPreservation: false
 
     # eureka.instance.appname=${spring.application.name}
 
   client:  # Not a client, don't register with yourself
-    registerWithEureka: false
-    fetchRegistry: false
+    preferSameZone: false
+    shouldOnDemandUpdateStatusChange: false
+    region: default
     serviceUrl:
-          defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+          defaultZone: http://ec2-34-215-110-22.us-west-2.compute.amazonaws.com:8085/eureka/
     # Notice that the serviceUrl is pointing to the same host as the local instance.
