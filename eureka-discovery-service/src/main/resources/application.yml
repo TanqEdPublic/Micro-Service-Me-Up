@@ -1,6 +1,4 @@
 # Configure this Discovery Server
-spring:
-  profiles: aws
 
 server:
   port: 8085   # HTTP (Tomcat) port

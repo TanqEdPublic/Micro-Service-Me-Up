@@ -6,7 +6,6 @@ spring:
     name: gateway
 
 eureka:
-  datacenter: cloud
   instance:
     prefer-ip-address: false # When the application registers with eureka, it will use its IP Address rather than its hostname.
     leaseRenewalIntervalInSeconds: 5   # how often client send heartbeats to Eureka server
