@@ -11,10 +11,10 @@ eureka:
     prefer-ip-address: false # When the application registers with eureka, it will use its IP Address rather than its hostname.
     leaseRenewalIntervalInSeconds: 5   # how often client send heartbeats to Eureka server
   client:
-    #registerWithEureka: true # default
-    #fetchRegistry: true # default
+    #registerWithEureka: true # true by default
+    #fetchRegistry: true # true by default
     serviceUrl:
-      defaultZone: http://ec2-34-214-152-29.us-west-2.compute.amazonaws.com:8086/eureka/
+      defaultZone: http://ec2-34-214-152-29.us-west-2.compute.amazonaws.com:8085/eureka/
       #defaultZone: http://localhost:8085/eureka/
 
 hystrix:
@@ -25,6 +25,10 @@ hystrix:
           strategy: THREAD
           thread:
             timeoutInMilliseconds: 60000
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
 
 zuul:
   #ignored-services: '*'
