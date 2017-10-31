@@ -1,10 +1,11 @@
 spring:
+  profiles: aws
   application:
     name: registration-service
 
 eureka:
     instance:
-        prefer-ip-address: true # When the application registers with eureka,
+        prefer-ip-address: false # When the application registers with eureka,
                                 # it will use its IP Address rather than its hostname.
         leaseRenewalIntervalInSeconds: 5   # How often client send heartbeats to Eureka server
     client:
@@ -12,7 +13,7 @@ eureka:
             # It is possible to configure service urls so that client uses closest zone of availability
             # Check for references: https://github.com/spring-cloud/spring-cloud-netflix/issues/1327
             # defaultZone: http://localhost:8085/eureka/ # address of an Eureka Server
-            defaultZone: http://34.215.110.22:8085/eureka/
+            defaultZone: http://ec2-34-215-110-22.us-west-2.compute.amazonaws.com
 
 server:
   port: 8091
