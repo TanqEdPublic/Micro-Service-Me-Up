@@ -1,4 +1,6 @@
 # Configure this Discovery Server
+spring:
+  profiles: aws
 
 server:
   port: 8085   # HTTP (Tomcat) port
@@ -10,14 +12,12 @@ eureka:
     preferIpAddress: false
     leaseExpirationDurationInSeconds: 10 # indicates the time that eureka server waits since it received the last
                                         # heartbeat before it can remove this instance from its view
-  datacenter: cloud
-  enableSelfPreservation: false
 
     # eureka.instance.appname=${spring.application.name}
 
   client:  # Not a client, don't register with yourself
-    preferSameZone: false
-    shouldOnDemandUpdateStatusChange: false
+    registerWithEureka: false
+    fetchRegistry: false
     region: default
     serviceUrl:
           defaultZone: http://ec2-34-215-110-22.us-west-2.compute.amazonaws.com:8085/eureka/
