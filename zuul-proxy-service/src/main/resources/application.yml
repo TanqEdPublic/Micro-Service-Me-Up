@@ -6,14 +6,15 @@ spring:
     name: gateway
 
 eureka:
+  datacenter: cloud
   instance:
-    prefer-ip-address: true # When the application registers with eureka, it will use its IP Address rather than its hostname.
+    prefer-ip-address: false # When the application registers with eureka, it will use its IP Address rather than its hostname.
     leaseRenewalIntervalInSeconds: 5   # how often client send heartbeats to Eureka server
   client:
     #registerWithEureka: true # default
     #fetchRegistry: true # default
     serviceUrl:
-      defaultZone: http://34.215.110.22:8085/eureka/
+      defaultZone: http://ec2-34-214-152-29.us-west-2.compute.amazonaws.com:8086/eureka/
       #defaultZone: http://localhost:8085/eureka/
 
 hystrix:
