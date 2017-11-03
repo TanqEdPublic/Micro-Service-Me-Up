@@ -2,7 +2,9 @@ package ie.gmit.sw.services;
 
 import ie.gmit.sw.domain.Authority;
 import ie.gmit.sw.domain.User;
+import ie.gmit.sw.domain.VerificationToken;
 import ie.gmit.sw.repository.UserRepository;
+import ie.gmit.sw.repository.VerificationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,12 @@ import java.util.List;
 public class RegistrationService {
 
     private UserRepository userRepo;
+    private VerificationTokenRepository tokenRepo;
 
     @Autowired
-    public RegistrationService(UserRepository userRepo) {
+    public RegistrationService(UserRepository userRepo,VerificationTokenRepository tokenRepo) {
         this.userRepo = userRepo;
+        this.tokenRepo = tokenRepo;
     }
 
 
@@ -36,6 +40,10 @@ public class RegistrationService {
         user.setAuthority(new Authority("PENDING_USER"));
         user.setEnabled(false);
         userRepo.save(user);
+
+        // generate token
+        VerificationToken token = new VerificationToken(user);
+        tokenRepo.save(token);
     }
 
     public List<User> allUsers(){

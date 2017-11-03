@@ -25,7 +25,7 @@ public class RegistrationController {
 
     @RequestMapping(value = "/user/new", method = RequestMethod.POST)
     public User newUser(@RequestBody NewUserRequest user){
-        User newUser = new User(user.getUsername(), user.getPassword(), user.getEmail());
+        User newUser = new User(user.getEmail(), user.getUsername(), user.getPassword());
         service.newUser(newUser);
         return service.findUser(user.getUsername());
     }

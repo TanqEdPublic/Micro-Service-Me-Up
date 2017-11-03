@@ -16,27 +16,27 @@ public class User{
     private Long id;
 
     @Index(unique = true)
+    private String email;
     private String username;
     private String password;
-    private String email;
     private boolean enabled;
 
-    @Relationship(type = "ROLE", direction = Relationship.OUTGOING)
+    @Relationship(type = "HAS_ROLE", direction = Relationship.OUTGOING)
     private Set<Authority> authorities;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, String email, boolean enabled, Set<Authority> authorities) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.enabled = enabled;
-        this.authorities = authorities;
-    }
+//    public User(Long id, String email, String username, String password, boolean enabled, Set<Authority> authorities) {
+//        this.id = id;
+//        this.username = username;
+//        this.password = password;
+//        this.email = email;
+//        this.enabled = enabled;
+//        this.authorities = authorities;
+//    }
 
-    public User(String username, String password, String email) {
+    public User(String email, String username, String password) {
         this.username = username;
         this.password = password;
         this.email = email;
