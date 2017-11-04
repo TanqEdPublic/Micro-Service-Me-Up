@@ -35,11 +35,19 @@ public class RegistrationController {
 
         // return boolean for verification
         if(service.verifyUser(token)){
+            try {
+                // Call method asynchronously to return response
+                // earlier than this method finish. Reduce delay time to produce response.
+                service.finishVerification(token);
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
             return "good";
         }else {
             return "bad";
         }
     }
+
 
     @RequestMapping("/users")
     public List<User> allUsers(){

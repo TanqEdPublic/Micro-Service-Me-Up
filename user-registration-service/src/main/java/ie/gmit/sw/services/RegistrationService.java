@@ -6,6 +6,7 @@ import ie.gmit.sw.domain.VerificationToken;
 import ie.gmit.sw.repository.UserRepository;
 import ie.gmit.sw.repository.VerificationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,7 +49,8 @@ public class RegistrationService {
 
 
     public boolean verifyUser(String token){
-
+        System.out.println("@@@@@@@@@@ Verify User thread: "
+                + Thread.currentThread().getName());
         // find token in database
         VerificationToken vt = tokenRepo.findByToken(token);
 
@@ -56,18 +58,35 @@ public class RegistrationService {
             // return false if token not found
             return false;
         }else{
-            if(vt.isTokenExpired()){
-                return false; // token is expired
-            }
-            // if token is found and not expired, get current user, and set enabled to true
-            User user = vt.getUser();
-            user.setEnabled(true);
-            // need to change Authorities as well
-            userRepo.save(user);
-            // remove token from database
-            tokenRepo.delete(vt);
-            return true;
+            // return
+            return !(vt.isTokenExpired()); // reverse boolean
+                                           // because method return true if token
+                                           // is expired, but we need to return
+                                           // false to controller in this case
         }
+    }
+
+    // Method executed asynchronously by specified thread executor
+    // This should improve response time of the Service, while this
+    // method performs few more repository actions after token is verified.
+    // Note, you can not call this method inside other method in this class, it will be
+    // executed by the same thread that is running method from this class.
+    @Async("executor")
+    public void finishVerification(String token) throws InterruptedException{
+        System.out.println("@@@@@@ Execute method asynchronously. "
+                + Thread.currentThread().getName());
+        VerificationToken vt = tokenRepo.findByToken(token);
+        // if token is found, get current user, and set enabled to true
+        User user = vt.getUser();
+        user.setEnabled(true);
+
+        // Need to figure out efficient way to add, remove, change authorities.
+        // user.setAuthority(new Authority("USER"));
+
+        userRepo.save(user);
+        tokenRepo.delete(vt);
+
+        // while (true){} // for async call testing
     }
 
 
