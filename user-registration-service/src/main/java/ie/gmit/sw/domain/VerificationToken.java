@@ -13,10 +13,10 @@ import java.util.UUID;
 @NodeEntity
 public class VerificationToken {
     @Transient
-    private static final int EXPIRATION = 60 * 24;
+    private static final int EXPIRATION = 1; // 60 * 24; // expiration in minutes
     @GraphId private Long id;
     private String token;
-    private final Date expiryDate = calculateExpiryDate(EXPIRATION);
+    private Date expiryDate;
 
     @Relationship(type = "VERIFY", direction = Relationship.OUTGOING)
     private User user;
@@ -27,7 +27,7 @@ public class VerificationToken {
     public VerificationToken(User user) {
         this.token = UUID.randomUUID().toString();
         this.user = user;
-       // this.expiryDate = calculateExpiryDate(EXPIRATION);
+        this.expiryDate = calculateExpiryDate(EXPIRATION);
     }
 
     public Long getId() {
@@ -50,12 +50,26 @@ public class VerificationToken {
         return expiryDate;
     }
 
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+
+    // method that verify current token instance expiration date
+    public boolean isTokenExpired(){
+        Calendar cal = Calendar.getInstance();
+        if(expiryDate.after(cal.getTime())){
+            return true;
+        }
+        return false;
     }
 
     private Date calculateExpiryDate(int expiryTimeInMinutes){

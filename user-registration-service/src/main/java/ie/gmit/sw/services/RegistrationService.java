@@ -56,7 +56,10 @@ public class RegistrationService {
             // return false if token not found
             return false;
         }else{
-            // if token is found, get current user, and set enabled to true
+            if(vt.isTokenExpired()){
+                return false; // token is expired
+            }
+            // if token is found and not expired, get current user, and set enabled to true
             User user = vt.getUser();
             user.setEnabled(true);
             // need to change Authorities as well
