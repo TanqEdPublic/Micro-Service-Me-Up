@@ -46,6 +46,28 @@ public class RegistrationService {
         tokenRepo.save(token);
     }
 
+
+    public boolean verifyUser(String token){
+
+        // find token in database
+        VerificationToken vt = tokenRepo.findByToken(token);
+
+        if(vt == null){
+            // return false if token not found
+            return false;
+        }else{
+            // if token is found, get current user, and set enabled to true
+            User user = vt.getUser();
+            user.setEnabled(true);
+            // need to change Authorities as well
+            userRepo.save(user);
+            // remove token from database
+            tokenRepo.delete(vt);
+            return true;
+        }
+    }
+
+
     public List<User> allUsers(){
 
         return (ArrayList) userRepo.findAll();

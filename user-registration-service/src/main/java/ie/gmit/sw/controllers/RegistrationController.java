@@ -30,6 +30,17 @@ public class RegistrationController {
         return service.findUser(user.getUsername());
     }
 
+    @GetMapping("/verify/{token}")
+    public String verifyUser(@PathVariable String token){
+
+        // return boolean for verification
+        if(service.verifyUser(token)){
+            return "good";
+        }else {
+            return "bad";
+        }
+    }
+
     @RequestMapping("/users")
     public List<User> allUsers(){
         return service.allUsers();
