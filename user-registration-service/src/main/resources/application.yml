@@ -16,7 +16,7 @@ eureka:
 
 gateway:
   gateway-path: http://ec2-34-215-110-22.us-west-2.compute.amazonaws.com:8086
-  email-path: http://ec2-34-215-110-22.us-west-2.compute.amazonaws.com:8086/email/sendmail/
+  email-path: http://ec2-34-215-110-22.us-west-2.compute.amazonaws.com:8086/email/sendemail/
 
 server:
   port: 8091
