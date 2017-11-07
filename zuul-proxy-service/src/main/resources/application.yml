@@ -41,3 +41,6 @@ zuul:
     profile:
       path: /profile/**
       serviceId: profile-service
+    email:
+      path: /email/**
+      serviceId: email-service
