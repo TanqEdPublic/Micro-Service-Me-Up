@@ -37,7 +37,7 @@ public class RegistrationService {
         return user;
     }
 
-    public void newUser(User user){
+    public String newUser(User user){
         user.setAuthority(new Authority("PENDING_USER"));
         user.setEnabled(false);
         userRepo.save(user);
@@ -45,6 +45,9 @@ public class RegistrationService {
         // generate token
         VerificationToken token = new VerificationToken(user);
         tokenRepo.save(token);
+
+        // return generated token sending by email
+        return token.getToken();
     }
 
 
