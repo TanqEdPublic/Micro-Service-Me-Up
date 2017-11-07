@@ -33,7 +33,7 @@ public class RegistrationController {
         String token = service.newUser(newUser);
 
         // send email
-        String appUrl = "http://localhost:8091/";
+        String appUrl = "http://localhost:8091";// need change to zuul url later
         SimpleMailMessage registrationEmail = new SimpleMailMessage();
         registrationEmail.setTo(user.getEmail());
         registrationEmail.setSubject("Registration Confirmation");
