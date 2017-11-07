@@ -17,11 +17,15 @@ public class RegistrationService {
 
     private UserRepository userRepo;
     private VerificationTokenRepository tokenRepo;
+    private EmailService emailService;
 
     @Autowired
-    public RegistrationService(UserRepository userRepo,VerificationTokenRepository tokenRepo) {
+    public RegistrationService(UserRepository userRepo,
+                               VerificationTokenRepository tokenRepo,
+                               EmailService emailService) {
         this.userRepo = userRepo;
         this.tokenRepo = tokenRepo;
+        this.emailService = emailService;
     }
 
 
@@ -37,7 +41,7 @@ public class RegistrationService {
         return user;
     }
 
-    public String newUser(User user){
+    public User newUser(User user){
         user.setAuthority(new Authority("PENDING_USER"));
         user.setEnabled(false);
         userRepo.save(user);
@@ -46,8 +50,11 @@ public class RegistrationService {
         VerificationToken token = new VerificationToken(user);
         tokenRepo.save(token);
 
+        // call method here to send email
+        emailService.sendEmail(user.getEmail(), token.getToken());
+
         // return generated token sending by email
-        return token.getToken();
+        return user;
     }
 
 

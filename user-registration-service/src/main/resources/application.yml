@@ -14,5 +14,9 @@ eureka:
             # defaultZone: http://localhost:8085/eureka/ # address of an Eureka Server
             defaultZone: http://ec2-34-215-110-22.us-west-2.compute.amazonaws.com:8085/eureka/
 
+gateway:
+  gateway-path: http://ec2-34-215-110-22.us-west-2.compute.amazonaws.com:8086
+  email-path: http://ec2-34-215-110-22.us-west-2.compute.amazonaws.com:8086/email/sendmail/
+
 server:
   port: 8091
