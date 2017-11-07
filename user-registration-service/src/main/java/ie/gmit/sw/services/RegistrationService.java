@@ -51,7 +51,12 @@ public class RegistrationService {
         tokenRepo.save(token);
 
         // call method here to send email
-        emailService.sendEmail(user.getEmail(), token.getToken());
+        try{
+            emailService.sendEmail(user.getEmail(), token.getToken());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
 
         // return generated token sending by email
         return user;

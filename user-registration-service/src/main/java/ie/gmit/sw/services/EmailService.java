@@ -1,6 +1,7 @@
 package ie.gmit.sw.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,11 @@ public class EmailService {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailService.class);
     private RestTemplate restTemplate;
 
+    @Value("${gateway.gateway-path}")
+    String appUrl;// need change to zuul url later
+    @Value("${gateway.email-path}")
+    String emailUrl;
+
     @Autowired
     public EmailService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -27,7 +33,7 @@ public class EmailService {
                 + Thread.currentThread().getName());
 
         // send email
-        String appUrl = "${gateway.gateway-path}";// need change to zuul url later
+
         SimpleMailMessage registrationEmail = new SimpleMailMessage();
         registrationEmail.setTo(email);
         registrationEmail.setSubject("Registration Confirmation");
@@ -35,7 +41,7 @@ public class EmailService {
                 + appUrl + "/verify/" + token);
         registrationEmail.setFrom("noreply@domain.com");
 
-        String response = restTemplate.postForObject("${gateway.email-path}",
+        String response = restTemplate.postForObject(emailUrl,
                                                     registrationEmail, String.class);
 
 
