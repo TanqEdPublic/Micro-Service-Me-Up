@@ -13,7 +13,7 @@ import java.util.UUID;
 @NodeEntity
 public class VerificationToken {
     @Transient
-    private static final int EXPIRATION = 1; // 60 * 24; // expiration in minutes
+    private static final int EXPIRATION =  60 * 24; // expiration in minutes
     @GraphId private Long id;
     private String token;
     private Date expiryDate;
@@ -68,9 +68,9 @@ public class VerificationToken {
         Calendar cal = Calendar.getInstance();
         // after() method checks if this date is after the specified date
         if(expiryDate.after(cal.getTime())){
-            return true; // return true if token is expired
+            return true; // return true if token is not expired
         }
-        return false; // return false if token is not expired
+        return false; // return false if token is expired
     }
 
     private Date calculateExpiryDate(int expiryTimeInMinutes){

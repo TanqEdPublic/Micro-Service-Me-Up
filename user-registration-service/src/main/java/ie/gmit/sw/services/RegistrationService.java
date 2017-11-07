@@ -62,7 +62,7 @@ public class RegistrationService {
             return false;
         }else{
             // return
-            return !(vt.isTokenExpired()); // reverse boolean
+            return vt.isTokenExpired(); // reverse boolean
                                            // because method return true if token
                                            // is expired, but we need to return
                                            // false to controller in this case
