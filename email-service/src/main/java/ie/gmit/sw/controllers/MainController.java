@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class MainController {
 
@@ -22,11 +25,18 @@ public class MainController {
     public String sendEmail(@RequestBody MailMsg mailMessage){
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setFrom(mailMessage.getFrom());
-        mail.setTo((String[])mailMessage.getTo().toArray());
+        String[] to = mailMessage.getTo().stream().toArray(String[]::new);
+        mail.setTo(to);
         mail.setSubject(mailMessage.getSubject());
         mail.setReplyTo(mailMessage.getReplyTo());
-        mail.setCc((String[])mailMessage.getCc().toArray());
-        mail.setBcc((String[])mailMessage.getBcc().toArray());
+        if(mailMessage.getCc() != null){
+            String[] cc = mailMessage.getCc().stream().toArray(String[]::new);
+            mail.setCc(cc);
+        }
+        if(mailMessage.getBcc() != null){
+            String[] bcc = mailMessage.getBcc().stream().toArray(String[]::new);
+            mail.setBcc(bcc);
+        }
         mail.setSentDate(mailMessage.getSentDate());
         mail.setText(mailMessage.getText());
         try {
