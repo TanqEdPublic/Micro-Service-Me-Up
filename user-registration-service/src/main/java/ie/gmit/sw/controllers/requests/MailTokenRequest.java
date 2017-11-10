@@ -9,7 +9,7 @@ public class MailTokenRequest implements Serializable{
     private static final long serialVersionUID = -8766332193250031510L;
 
     private String from;
-    private List<String> replyTo;
+    private String replyTo;
     private List<String> to;
     private List<String> cc;
     private List<String> bcc;
@@ -25,11 +25,11 @@ public class MailTokenRequest implements Serializable{
         this.from = from;
     }
 
-    public List<String> getReplyTo() {
+    public String getReplyTo() {
         return replyTo;
     }
 
-    public void setReplyTo(List<String> replyTo) {
+    public void setReplyTo(String replyTo) {
         this.replyTo = replyTo;
     }
 
