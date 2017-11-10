@@ -1,5 +1,6 @@
 package ie.gmit.sw.services;
 
+import ie.gmit.sw.controllers.requests.MailTokenRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -8,6 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service("emailService")
@@ -32,17 +36,26 @@ public class EmailService {
         LOGGER.info("@@@@@@@@@@ Email Sender Service thread: "
                 + Thread.currentThread().getName());
 
-        // send email
+        List<String> to = new ArrayList<>();
+        MailTokenRequest tokenMail = new MailTokenRequest();
+        to.add(email);
 
+        tokenMail.setTo(to);
+        tokenMail.setSubject("Registration Confirmation");
+        tokenMail.setText("To confirm your e-mail address, please click the link below:\n"
+                + appUrl + "/verify/" + token);
+        tokenMail.setFrom("noreply@domain.com");
+
+        // send email
+/*
         SimpleMailMessage registrationEmail = new SimpleMailMessage();
         registrationEmail.setTo(email);
         registrationEmail.setSubject("Registration Confirmation");
         registrationEmail.setText("To confirm your e-mail address, please click the link below:\n"
                 + appUrl + "/verify/" + token);
-        registrationEmail.setFrom("noreply@domain.com");
+        registrationEmail.setFrom("noreply@domain.com"); */
 
-        String response = restTemplate.postForObject(emailUrl,
-                                                    registrationEmail, String.class);
+        String response = restTemplate.postForObject(emailUrl, tokenMail, String.class);
 
 
         LOGGER.info("###### Email Service response: " + response);
