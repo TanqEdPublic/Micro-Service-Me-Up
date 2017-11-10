@@ -43,7 +43,8 @@ public class EmailService {
         tokenMail.setTo(to);
         tokenMail.setSubject("Registration Confirmation");
         tokenMail.setText("To confirm your e-mail address, please click the link below:\n"
-                + appUrl + "/verify/" + token);
+                + appUrl + "/reg/verify/" + token); // use API root defined in Zuul
+                                                    // Registration API /reg/ in this case
         tokenMail.setFrom("noreply@domain.com");
 
         // send email
