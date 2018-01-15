@@ -18,5 +18,5 @@ eureka:
     fetchRegistry: false
     region: default
     serviceUrl:
-          defaultZone: http://ec2-34-215-110-22.us-west-2.compute.amazonaws.com:8085/eureka/
+          defaultZone: http://ec2-54-201-208-226.us-west-2.compute.amazonaws.com:8085/eureka/
     # Notice that the serviceUrl is pointing to the same host as the local instance.

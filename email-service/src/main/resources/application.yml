@@ -12,7 +12,7 @@ eureka:
             # It is possible to configure service urls so that client uses closest zone of availability
             # Check for references: https://github.com/spring-cloud/spring-cloud-netflix/issues/1327
             # defaultZone: http://localhost:8085/eureka/ # address of an Eureka Server
-            defaultZone: http://ec2-34-215-110-22.us-west-2.compute.amazonaws.com:8085/eureka/
+            defaultZone: http://ec2-54-201-208-226.us-west-2.compute.amazonaws.com:8085/eureka/
 
 server:
   port: 8093
