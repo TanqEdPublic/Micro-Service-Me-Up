@@ -3,42 +3,19 @@ package ie.gmit.sw.config;
 import com.netflix.appinfo.AmazonInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.concurrent.Executor;
 
 @Configuration
 @EnableAsync
 @Import(InetUtils.class)
-public class RegistrationConfiguration {
-
+public class ZuulConfiguration {
     @Value("${server.port}")
     private int port;
-
-    // Async method executor
-    @Bean(name = "executor")
-    public Executor asyncExecutor() {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(2);
-        executor.setMaxPoolSize(2);
-        executor.setQueueCapacity(500);
-        executor.setThreadNamePrefix("User Verification Cleaner-");
-        executor.initialize();
-        return executor;
-    }
-
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
-    }
 
     @Bean
     @Autowired
