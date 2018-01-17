@@ -59,7 +59,7 @@ public class EmailService {
         String response = restTemplate.postForObject(emailUrl, tokenMail, String.class);
 
 
-        LOGGER.info("###### Email Service response: " + response);
+        LOGGER.info("###### Email Service responses: " + response);
 
     }
 }

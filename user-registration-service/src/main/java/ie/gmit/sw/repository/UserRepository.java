@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends GraphRepository<User>{
 
     User findByUsername(String name);
+    User findByEmail(String email);
 }

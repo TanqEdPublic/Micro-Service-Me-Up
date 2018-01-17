@@ -1,6 +1,7 @@
 package ie.gmit.sw.controllers;
 
 import ie.gmit.sw.controllers.requests.NewUserRequest;
+import ie.gmit.sw.controllers.responses.RegResponse;
 import ie.gmit.sw.domain.User;
 import ie.gmit.sw.services.EmailService;
 import ie.gmit.sw.services.RegistrationService;
@@ -12,7 +13,6 @@ import java.util.List;
 
 @RestController
 public class RegistrationController {
-
     private RegistrationService service;
 
 
@@ -21,26 +21,25 @@ public class RegistrationController {
         this.service = service;
     }
 
-    @RequestMapping("/user/{name}")
-    public User getUser(@PathVariable String name){
-        return service.findUser(name);
+    @RequestMapping(value = "/user/new", method = RequestMethod.POST)
+    public RegResponse newUser(@RequestBody NewUserRequest user){
+        User newUser = new User(user.getEmail(), user.getUsername(), user.getPassword());
+        return service.newUser(newUser);
     }
 
-    @RequestMapping(value = "/user/new", method = RequestMethod.POST)
-    public User newUser(@RequestBody NewUserRequest user){
-        User newUser = new User(user.getEmail(), user.getUsername(), user.getPassword());
-
-        return service.newUser(newUser);
+    // follows are extra methods:
+    @RequestMapping("/user/{name}")
+    public User getUser(@PathVariable String name){
+        return service.findUserByUsername(name);
     }
 
     @GetMapping("/verify/{token}")
     public String verifyUser(@PathVariable String token){
-
         // return boolean for verification
         if(service.verifyUser(token)){
             try {
-                // Call method asynchronously to return response
-                // earlier than this method finish. Reduce delay time to produce response.
+                // Call method asynchronously to return responses
+                // earlier than this method finish. Reduce delay time to produce responses.
                 service.finishVerification(token);
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
@@ -50,7 +49,6 @@ public class RegistrationController {
             return "bad";
         }
     }
-
 
     @RequestMapping("/users")
     public List<User> allUsers(){

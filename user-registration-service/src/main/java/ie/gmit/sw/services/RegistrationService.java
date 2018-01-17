@@ -1,5 +1,6 @@
 package ie.gmit.sw.services;
 
+import ie.gmit.sw.controllers.responses.RegResponse;
 import ie.gmit.sw.domain.Authority;
 import ie.gmit.sw.domain.User;
 import ie.gmit.sw.domain.VerificationToken;
@@ -35,13 +36,21 @@ public class RegistrationService {
     }
 */
 
-    public User findUser(String username){
-        User user = userRepo.findByUsername(username);
-        System.out.println(user.getUsername());
-        return user;
+    public User findUserByUsername(String username){
+        return userRepo.findByUsername(username);
     }
 
-    public User newUser(User user){
+    public User findUserByEmail(String email){
+        return userRepo.findByEmail(email);
+    }
+
+    public RegResponse newUser(User user){
+        // check if the user is exist
+        // here, user email is unique !!!
+        if(findUserByEmail(user.getEmail()) != null){
+            return new RegResponse("duplicate user !");
+        }
+
         user.setAuthority(new Authority("PENDING_USER"));
         user.setEnabled(false);
         userRepo.save(user);
@@ -57,9 +66,8 @@ public class RegistrationService {
             System.out.println(e.getMessage());
         }
 
-
-        // return generated token sending by email
-        return user;
+        // return status
+        return new RegResponse("registered !");
     }
 
 
@@ -82,7 +90,7 @@ public class RegistrationService {
     }
 
     // Method executed asynchronously by specified thread executor
-    // This should improve response time of the Service, while this
+    // This should improve responses time of the Service, while this
     // method performs few more repository actions after token is verified.
     // Note, you can not call this method inside other method in this class, it will be
     // executed by the same thread that is running method from this class.

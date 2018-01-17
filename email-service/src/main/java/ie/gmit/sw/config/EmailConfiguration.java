@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @Configuration
-@EnableAsync
 @Import(InetUtils.class)
 public class EmailConfiguration {
     @Value("${server.port}")
