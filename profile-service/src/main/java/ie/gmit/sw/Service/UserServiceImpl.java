@@ -32,13 +32,28 @@ public class UserServiceImpl implements UserService {
             // preferably on a Clients before sending Request
             logger.error("@@@ UserDetail failed to be saved... Reason: " + exc.getMessage() + " @@@");
         }
-        logger.error("@@@ UserDetail: " + user.getEmail() + " is registered! @@@");
+        logger.info("@@@ UserDetail: " + user.getEmail() + " is registered! @@@");
         return new ProfileResponse("create success !");
     }
 
     @Override
-    public UserDetail getUser(ProfileRequest request) {
-        return mongoDB.findByEmail(request.getEmail());
+    public ProfileResponse updateUserDetail(ProfileRequest request) {
+        deleteUserDetail(request);
+        mongoDB.save(UserDetailFactory.create(request));
+        logger.info("@@@ UserDetail: " + request.getEmail() + " is updated! @@@");
+        return new ProfileResponse("update success !");
+    }
+
+    @Override
+    public ProfileResponse deleteUserDetail(ProfileRequest request) {
+        mongoDB.delete(getUserByEmail(request.getEmail()));
+        logger.info("@@@ UserDetail: " + request.getEmail() + " is deleted! @@@");
+        return new ProfileResponse("delete success !");
+    }
+
+    @Override
+    public UserDetail getUserByEmail(String email) {
+        return mongoDB.findByEmail(email);
     }
 
     @Override

@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface UserService {
     public ProfileResponse createUserDetail(ProfileRequest request) throws Exception;
-    public UserDetail getUser(ProfileRequest request);
+    public ProfileResponse updateUserDetail(ProfileRequest request);
+    public ProfileResponse deleteUserDetail(ProfileRequest request);
+    public UserDetail getUserByEmail(String email);
     public List<Object> showAll();
 }

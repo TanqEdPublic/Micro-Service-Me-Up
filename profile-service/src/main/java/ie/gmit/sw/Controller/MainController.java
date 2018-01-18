@@ -15,4 +15,14 @@ public class MainController {
     public ProfileResponse newUserDetail(@RequestBody ProfileRequest request) throws Throwable {
         return userService.createUserDetail(request);
     }
+
+    @RequestMapping( path = "/userdetail/update", method = RequestMethod.POST)
+    public ProfileResponse updateUserDetail(@RequestBody ProfileRequest request) throws Throwable {
+        return userService.updateUserDetail(request);
+    }
+
+    @RequestMapping( path = "/userdetail/delete", method = RequestMethod.POST)
+    public ProfileResponse deleteUserDetail(@RequestBody ProfileRequest request) throws Throwable {
+        return userService.deleteUserDetail(request);
+    }
 }
