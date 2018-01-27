@@ -1,7 +1,7 @@
 package ie.gmit.sw.services;
 
 import ie.gmit.sw.controllers.responses.RegResponse;
-import ie.gmit.sw.domain.Authority;
+import ie.gmit.sw.domain.Role;
 import ie.gmit.sw.domain.User;
 import ie.gmit.sw.domain.VerificationToken;
 import ie.gmit.sw.repository.UserRepository;
@@ -36,22 +36,20 @@ public class RegistrationService {
     }
 */
 
-    public User findUserByUsername(String username){
-        return userRepo.findByUsername(username);
-    }
-
     public User findUserByEmail(String email){
-        return userRepo.findByEmail(email);
+        return userRepo.findByUsername(email);
     }
 
     public RegResponse newUser(User user){
         // check if the user is exist
         // here, user email is unique !!!
-        if(findUserByEmail(user.getEmail()) != null){
+        if(findUserByEmail(user.getUsername()) != null){
             return new RegResponse("duplicate user !");
         }
 
-        user.setAuthority(new Authority("PENDING_USER"));
+        List<Role> roles = new ArrayList<>();
+        roles.add(new Role("PENDING_USER"));
+        user.setRoles((roles));
         user.setEnabled(false);
         userRepo.save(user);
 
@@ -61,7 +59,7 @@ public class RegistrationService {
 
         // call method here to send email
         try{
-            emailService.sendEmail(user.getEmail(), token.getToken());
+            emailService.sendEmail(user.getUsername(), token.getToken());
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

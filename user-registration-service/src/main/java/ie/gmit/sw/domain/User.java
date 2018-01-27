@@ -6,6 +6,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -16,30 +17,19 @@ public class User{
     private Long id;
 
     @Index(unique = true)
-    private String email;
     private String username;
     private String password;
     private boolean enabled;
 
     @Relationship(type = "HAS_ROLE", direction = Relationship.OUTGOING)
-    private Set<Authority> authorities;
+    private List<Role> roles;
 
     public User() {
     }
 
-//    public User(Long id, String email, String username, String password, boolean enabled, Set<Authority> authorities) {
-//        this.id = id;
-//        this.username = username;
-//        this.password = password;
-//        this.email = email;
-//        this.enabled = enabled;
-//        this.authorities = authorities;
-//    }
-
-    public User(String email, String username, String password) {
-        this.username = username;
+    public User(String email, String password) {
         this.password = password;
-        this.email = email;
+        this.username = email;
     }
 
     public Long getId() {
@@ -50,14 +40,6 @@ public class User{
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -66,12 +48,12 @@ public class User{
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public boolean isEnabled() {
@@ -82,19 +64,12 @@ public class User{
         this.enabled = enabled;
     }
 
-    public Set<Authority> getAuthorities() {
-        return authorities;
+    public List<Role> getRoles() {
+        return roles;
     }
-/*
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
-    }*/
 
-    public void setAuthority(Authority authority) {
-        if(this.authorities == null){
-            authorities = new HashSet<>();
-        }
-        this.authorities.add(authority);
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
 

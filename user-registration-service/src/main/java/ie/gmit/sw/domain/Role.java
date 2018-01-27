@@ -2,21 +2,20 @@ package ie.gmit.sw.domain;
 
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
 
 @NodeEntity
-public class Authority {
+public class Role {
 
     @GraphId
     private Long id;
 
     private String name;
 
-    public Authority() {
+    public Role() {
     }
 
 
-    public Authority(String name) {
+    public Role(String name) {
         this.name = name;
     }
 

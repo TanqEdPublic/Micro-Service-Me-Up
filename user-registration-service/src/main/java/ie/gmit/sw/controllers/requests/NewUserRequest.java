@@ -4,25 +4,15 @@ import java.io.Serializable;
 
 public class NewUserRequest implements Serializable{
 
-    private String username;
     private String password;
     private String email;
 
     public NewUserRequest() {
     }
 
-    public NewUserRequest(String username, String password, String email) {
-        this.username = username;
+    public NewUserRequest(String email, String password) {
         this.password = password;
         this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {

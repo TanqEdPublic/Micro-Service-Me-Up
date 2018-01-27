@@ -23,16 +23,11 @@ public class RegistrationController {
 
     @RequestMapping(value = "/user/new", method = RequestMethod.POST)
     public RegResponse newUser(@RequestBody NewUserRequest user){
-        User newUser = new User(user.getEmail(), user.getUsername(), user.getPassword());
+        User newUser = new User(user.getEmail(), user.getPassword());
         return service.newUser(newUser);
     }
 
     // follows are extra methods:
-    @RequestMapping("/user/{name}")
-    public User getUser(@PathVariable String name){
-        return service.findUserByUsername(name);
-    }
-
     @GetMapping("/verify/{token}")
     public String verifyUser(@PathVariable String token){
         // return boolean for verification
