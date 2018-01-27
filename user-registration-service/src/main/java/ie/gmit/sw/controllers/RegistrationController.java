@@ -1,56 +1,56 @@
 package ie.gmit.sw.controllers;
 
 import ie.gmit.sw.controllers.requests.NewUserRequest;
-import ie.gmit.sw.controllers.responses.RegResponse;
 import ie.gmit.sw.domain.User;
 import ie.gmit.sw.domain.UserFactory;
-import ie.gmit.sw.services.EmailService;
-import ie.gmit.sw.services.RegistrationService;
+import ie.gmit.sw.exceptions.*;
+import ie.gmit.sw.services.UserRegistratorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class RegistrationController {
-    private RegistrationService service;
+    private UserRegistratorService service;
 
 
     @Autowired
-    public RegistrationController(RegistrationService service) {
+    public RegistrationController(UserRegistratorService service) {
         this.service = service;
     }
 
     @RequestMapping(value = "/user/new", method = RequestMethod.POST)
-    public RegResponse newUser(@RequestBody NewUserRequest user){
+    public ResponseEntity<?> newUser(@RequestBody NewUserRequest user){
 
         // Call user factory here
         UserFactory uf = UserFactory.getInstance();
         User newUser = uf.getUserFromRequest(user);
-        return service.newUser(newUser);
+
+        try {
+            service.createNewUser(newUser);
+
+            return ResponseEntity.ok("Successfully registered!");
+        } catch (DuplicateUserException ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        } catch (UnexpectedRegistrationException ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+
     }
 
     // follows are extra methods:
     @GetMapping("/verify/{token}")
-    public String verifyUser(@PathVariable String token){
+    public ResponseEntity<?> verifyUser(@PathVariable String token){
         // return boolean for verification
-        if(service.verifyUser(token)){
-            try {
-                // Call method asynchronously to return responses
-                // earlier than this method finish. Reduce delay time to produce responses.
-                service.finishVerification(token);
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-            return "good";
-        }else {
-            return "bad";
-        }
-    }
+        try{
+            service.verifyUserByToken(token);
+            return ResponseEntity.ok("Account verified. You may logic.");
+        } catch(VerificationTokenNotFoundException ex){
 
-    @RequestMapping("/users")
-    public List<User> allUsers(){
-        return service.allUsers();
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        } catch(VerificationTokenExpiredException ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+
     }
 }
