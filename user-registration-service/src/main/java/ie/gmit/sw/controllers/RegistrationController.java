@@ -3,6 +3,7 @@ package ie.gmit.sw.controllers;
 import ie.gmit.sw.controllers.requests.NewUserRequest;
 import ie.gmit.sw.controllers.responses.RegResponse;
 import ie.gmit.sw.domain.User;
+import ie.gmit.sw.domain.UserFactory;
 import ie.gmit.sw.services.EmailService;
 import ie.gmit.sw.services.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,10 @@ public class RegistrationController {
 
     @RequestMapping(value = "/user/new", method = RequestMethod.POST)
     public RegResponse newUser(@RequestBody NewUserRequest user){
-        User newUser = new User(user.getEmail(), user.getPassword());
+
+        // Call user factory here
+        UserFactory uf = UserFactory.getInstance();
+        User newUser = uf.getUserFromRequest(user);
         return service.newUser(newUser);
     }
 

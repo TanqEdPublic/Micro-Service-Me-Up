@@ -1,4 +1,4 @@
-package ie.gmit.sw.Services;
+package ie.gmit.sw.services;
 
 import ie.gmit.sw.models.User;
 import ie.gmit.sw.repositories.UserRepository;
@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomUserService implements UserDetailsService{
+public class Neo4jUserService implements UserDetailsService{
     @Autowired
     UserRepository userRepository;
 

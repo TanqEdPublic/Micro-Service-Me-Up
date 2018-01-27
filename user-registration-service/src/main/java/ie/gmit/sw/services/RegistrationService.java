@@ -29,28 +29,13 @@ public class RegistrationService {
         this.emailService = emailService;
     }
 
-
-/*
-    public RegistrationService(UserRepository userRepo) {
-        this.userRepo = userRepo;
-    }
-*/
-
-    public User findUserByEmail(String email){
-        return userRepo.findByUsername(email);
-    }
-
     public RegResponse newUser(User user){
         // check if the user is exist
         // here, user email is unique !!!
-        if(findUserByEmail(user.getUsername()) != null){
+        if(userRepo.findByUsername(user.getUsername()) != null){
             return new RegResponse("duplicate user !");
         }
 
-        List<Role> roles = new ArrayList<>();
-        roles.add(new Role("PENDING_USER"));
-        user.setRoles((roles));
-        user.setEnabled(false);
         userRepo.save(user);
 
         // generate token
