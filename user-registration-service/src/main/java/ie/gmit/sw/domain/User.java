@@ -4,32 +4,37 @@ import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 
 @NodeEntity
-public class User{
-
+public class User implements UserDetails {
     @GraphId
     private Long id;
-
     @Index(unique = true)
     private String username;
     private String password;
     private boolean enabled;
-
+    private boolean accountNonExpired;
+    private boolean accountNonLocked;
+    private boolean credentialsNonExpired;
     @Relationship(type = "HAS_ROLE", direction = Relationship.OUTGOING)
     private List<Role> roles;
 
     public User() {
     }
 
-    public User(String email, String password) {
+    public User(String email, String username, String password) {
+        this.username = username;
         this.password = password;
-        this.username = email;
+        //this.email = email;
     }
 
     public Long getId() {
@@ -40,14 +45,6 @@ public class User{
         this.id = id;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -56,12 +53,22 @@ public class User{
         this.username = username;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> auths = new ArrayList<>();
+        List<Role> roles = this.getRoles();
+        for (Role role : roles) {
+            auths.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return auths;
     }
 
     public List<Role> getRoles() {
@@ -72,5 +79,39 @@ public class User{
         this.roles = roles;
     }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    @Autowired
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
 }
