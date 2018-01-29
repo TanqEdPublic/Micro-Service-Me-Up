@@ -44,3 +44,6 @@ zuul:
     email:
       path: /email/**
       serviceId: email-service
+    auth:
+      path: /auth/**
+      serviceId: authentication-service
