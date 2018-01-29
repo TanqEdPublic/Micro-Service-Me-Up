@@ -68,7 +68,7 @@ public class UserRegistrationServiceImpl implements UserRegistratorService {
         VerificationToken vt = tokenRepo.findByToken(token);
 
         if(vt == null) throw new VerificationTokenNotFoundException("Verification link is not valid.");
-        if(vt.isTokenExpired()) throw new VerificationTokenExpiredException("Verification link is expired.");
+        if(!vt.isTokenExpired()) throw new VerificationTokenExpiredException("Verification link is expired.");
 
         // Execute remaining of the operations in a separate thread
         // for faster response time of registration method.
