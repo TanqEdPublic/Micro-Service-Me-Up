@@ -16,9 +16,6 @@ public class Neo4jUserService implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(s);
-        if (user == null) {
-            throw new UsernameNotFoundException("no such user");
-        }
         System.out.println("s:"+s);
         System.out.println("username:"+user.getUsername()+";password:"+user.getPassword());
         return user;
