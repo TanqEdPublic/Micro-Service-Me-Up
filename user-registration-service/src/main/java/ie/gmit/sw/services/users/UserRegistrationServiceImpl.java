@@ -77,6 +77,9 @@ public class UserRegistrationServiceImpl implements UserRegistratorService {
             // if token is found, get current user, and set enabled to true
             User user = vt.getUser();
             user.setEnabled(true);
+            user.setAccountNonExpired(true);
+            user.setAccountNonLocked(true);
+            user.setCredentialsNonExpired(true);
 
             // Need to figure out efficient way to add, remove, change authorities.
             // user.setAuthority(new Authority("USER"));
