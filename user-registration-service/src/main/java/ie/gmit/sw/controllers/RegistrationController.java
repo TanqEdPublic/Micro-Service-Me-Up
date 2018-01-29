@@ -4,7 +4,7 @@ import ie.gmit.sw.controllers.requests.NewUserRequest;
 import ie.gmit.sw.domain.User;
 import ie.gmit.sw.domain.UserFactory;
 import ie.gmit.sw.exceptions.*;
-import ie.gmit.sw.services.UserRegistratorService;
+import ie.gmit.sw.services.users.UserRegistratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 public class RegistrationController {
     private UserRegistratorService service;
 
+    @Autowired
+    private UserFactory uf;
 
     @Autowired
     public RegistrationController(UserRegistratorService service) {
@@ -23,7 +25,7 @@ public class RegistrationController {
     public ResponseEntity<?> newUser(@RequestBody NewUserRequest user){
 
         // Call user factory here
-        UserFactory uf = UserFactory.getInstance();
+       // UserFactory uf = UserFactory.getInstance();
         User newUser = uf.getUserFromRequest(user);
 
         try {
