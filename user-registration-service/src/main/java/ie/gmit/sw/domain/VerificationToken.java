@@ -68,9 +68,9 @@ public class VerificationToken {
         Calendar cal = Calendar.getInstance();
         // after() method checks if this date is after the specified date
         if(expiryDate.after(cal.getTime())){
-            return true; // return true if token is not expired
+            return false; // return true if token is not expired
         }
-        return false; // return false if token is expired
+        return true; // return false if token is expired
     }
 
     private Date calculateExpiryDate(int expiryTimeInMinutes){

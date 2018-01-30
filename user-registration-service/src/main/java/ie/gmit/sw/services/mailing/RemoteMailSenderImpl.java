@@ -33,14 +33,13 @@ public class RemoteMailSenderImpl implements RemoteMailSender {
     @Override
     public void sendMail(RemoteMailMessage rmm) throws RemoteMailException {
 
-        System.out.println(rmm.toString());
-
+        System.out.println("SEND MAIL METHOD CALLED BY - " + Thread.currentThread().getName());
         executor.execute(() -> {
-            ResponseEntity<?> resp = restTemplate.postForObject(emailUrl, rmm, ResponseEntity.class);
+            String resp = restTemplate.postForObject(emailUrl, rmm, String.class);
 
             // do something based on response status code
 
-            System.out.println("STATUS CODE FROM EMAIL SERVICE: " + resp.getStatusCode());
+            //System.out.println("STATUS CODE FROM EMAIL SERVICE: " + resp.getStatusCode());
         });
     }
 }

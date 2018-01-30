@@ -44,7 +44,7 @@ public class RegistrationController {
         // return boolean for verification
         try{
             service.verifyUserByToken(token);
-            return ResponseEntity.ok("Account verified. You may logic.");
+            return ResponseEntity.ok("Account verified. You may login.");
         } catch(VerificationTokenNotFoundException ex){
 
             return ResponseEntity.badRequest().body(ex.getMessage());
