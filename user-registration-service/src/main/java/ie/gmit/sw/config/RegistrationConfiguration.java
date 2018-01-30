@@ -32,7 +32,7 @@ public class RegistrationConfiguration {
         executor.setCorePoolSize(2);
         executor.setMaxPoolSize(2);
         executor.setQueueCapacity(500);
-        executor.setThreadNamePrefix("User Verification Cleaner-");
+        executor.setThreadNamePrefix("Arbitrary Jobs Executor -");
         executor.initialize();
         return executor;
     }

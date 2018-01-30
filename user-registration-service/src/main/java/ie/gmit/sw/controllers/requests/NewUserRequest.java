@@ -7,13 +7,6 @@ public class NewUserRequest implements Serializable{
     private String password;
     private String email;
 
-    public NewUserRequest() {
-    }
-
-    public NewUserRequest(String email, String password) {
-        this.password = password;
-        this.email = email;
-    }
 
     public String getPassword() {
         return password;

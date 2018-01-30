@@ -6,8 +6,13 @@ import ie.gmit.sw.exceptions.*;
 import ie.gmit.sw.repository.UserRepository;
 import ie.gmit.sw.repository.VerificationTokenRepository;
 import ie.gmit.sw.services.mailing.EmailService;
+import ie.gmit.sw.services.mailing.MailMessageBuilder;
+import ie.gmit.sw.services.mailing.RemoteMailMessage;
+import ie.gmit.sw.services.mailing.RemoteMailSender;
+import ie.gmit.sw.services.mailing.exceptions.MailServiceNotAvailableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.Executor;
@@ -17,7 +22,12 @@ public class UserRegistrationServiceImpl implements UserRegistratorService {
 
     private UserRepository userRepo;
     private VerificationTokenRepository tokenRepo;
-    private EmailService emailService;
+
+    private RemoteMailSender remoteMailSender;
+    private MailMessageBuilder mailMessageBuilder;
+
+    @Value("${gateway.gateway-path}")
+    String appUrl;// need change to zuul url later
 
     @Autowired
     @Qualifier("executor")
@@ -26,10 +36,12 @@ public class UserRegistrationServiceImpl implements UserRegistratorService {
     @Autowired
     public UserRegistrationServiceImpl(UserRepository userRepo,
                                    VerificationTokenRepository tokenRepo,
-                                   EmailService emailService) {
+                                   RemoteMailSender remoteMailSender,
+                                   MailMessageBuilder mailMessageBuilder) {
         this.userRepo = userRepo;
         this.tokenRepo = tokenRepo;
-        this.emailService = emailService;
+        this.remoteMailSender = remoteMailSender;
+        this.mailMessageBuilder = mailMessageBuilder;
     }
 
     @Override
@@ -48,8 +60,19 @@ public class UserRegistrationServiceImpl implements UserRegistratorService {
 
         try{
             // send email with verification link
-            emailService.sendEmail(user.getUsername(), token.getToken());
-        }catch(Exception e){
+
+            System.out.println("USERNAME: " + user.getUsername());
+            RemoteMailMessage rmm = mailMessageBuilder
+                                        .setTo(new String[]{user.getUsername()})
+                                        .setSubject("Registration Confirmation")
+                                        .setText("To confirm your e-mail address, please click the link below:\n"
+                                        + appUrl + "/reg/verify/" + token.getToken())
+                                        .buildMessage();
+            // use API root defined in Zuul
+            // Registration API /reg/ in this case
+
+            remoteMailSender.sendMail(rmm);
+        }catch(MailServiceNotAvailableException e){
             System.out.println(e.getMessage());
 
             // do roll back
@@ -68,7 +91,7 @@ public class UserRegistrationServiceImpl implements UserRegistratorService {
         VerificationToken vt = tokenRepo.findByToken(token);
 
         if(vt == null) throw new VerificationTokenNotFoundException("Verification link is not valid.");
-        if(!vt.isTokenExpired()) throw new VerificationTokenExpiredException("Verification link is expired.");
+        if(vt.isTokenExpired()) throw new VerificationTokenExpiredException("Verification link is expired.");
 
         // Execute remaining of the operations in a separate thread
         // for faster response time of registration method.

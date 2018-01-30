@@ -24,8 +24,6 @@ public class RegistrationController {
     @RequestMapping(value = "/user/new", method = RequestMethod.POST)
     public ResponseEntity<?> newUser(@RequestBody NewUserRequest user){
 
-        // Call user factory here
-       // UserFactory uf = UserFactory.getInstance();
         User newUser = uf.getUserFromRequest(user);
 
         try {
