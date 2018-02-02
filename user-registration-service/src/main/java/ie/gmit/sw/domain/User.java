@@ -9,13 +9,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 
 @NodeEntity
 public class User implements UserDetails {
+
     @GraphId
     private Long id;
     @Index(unique = true)
@@ -25,10 +24,13 @@ public class User implements UserDetails {
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
+
+
     @Relationship(type = "HAS_ROLE", direction = Relationship.OUTGOING)
-    private List<Role> roles;
+    private Set<Role> roles;
 
     public User() {
+        roles = new HashSet<>();
     }
 
     public User(String username, String password) {
@@ -63,18 +65,18 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<>();
-        List<Role> roles = this.getRoles();
+        Set<Role> roles = this.getRoles();
         for (Role role : roles) {
-            auths.add(new SimpleGrantedAuthority(role.getName()));
+            auths.add(new SimpleGrantedAuthority(role.getName().toString()));
         }
         return auths;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 

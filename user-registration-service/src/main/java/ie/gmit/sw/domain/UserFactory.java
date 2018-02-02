@@ -1,18 +1,19 @@
 package ie.gmit.sw.domain;
 
 import ie.gmit.sw.controllers.requests.NewUserRequest;
+import ie.gmit.sw.services.roles.UserRolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class UserFactory {
     private static UserFactory instance;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserRolesService userRolesService;
 
     public static UserFactory getInstance() {
 
@@ -37,9 +38,6 @@ public class UserFactory {
         user.setUsername(request.getEmail());
         String encoded_pass = passwordEncoder.encode(request.getPassword());
         user.setPassword(encoded_pass);
-        List<Role> roles = new ArrayList<>();
-        roles.add(new Role("PENDING_USER"));
-        user.setRoles(roles);
         user.setEnabled(false);
 
         return user;

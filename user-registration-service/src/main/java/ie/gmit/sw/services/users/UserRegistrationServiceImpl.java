@@ -1,25 +1,22 @@
 package ie.gmit.sw.services.users;
 
-import ie.gmit.sw.domain.Role;
 import ie.gmit.sw.domain.User;
+import ie.gmit.sw.domain.UserRole;
 import ie.gmit.sw.domain.VerificationToken;
 import ie.gmit.sw.exceptions.*;
 import ie.gmit.sw.repository.UserRepository;
 import ie.gmit.sw.repository.VerificationTokenRepository;
-import ie.gmit.sw.services.mailing.EmailService;
 import ie.gmit.sw.services.mailing.MailMessageBuilder;
 import ie.gmit.sw.services.mailing.RemoteMailMessage;
 import ie.gmit.sw.services.mailing.RemoteMailSender;
 import ie.gmit.sw.services.mailing.exceptions.MailServiceNotAvailableException;
+import ie.gmit.sw.services.roles.UserRolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Executor;
-import java.util.function.UnaryOperator;
 
 @Service
 public class UserRegistrationServiceImpl implements UserRegistratorService {
@@ -30,6 +27,8 @@ public class UserRegistrationServiceImpl implements UserRegistratorService {
     private RemoteMailSender remoteMailSender;
     private MailMessageBuilder mailMessageBuilder;
 
+    private UserRolesService userRolesService;
+
     @Value("${gateway.gateway-path}")
     private String appUrl;// need change to zuul url later
 
@@ -39,13 +38,15 @@ public class UserRegistrationServiceImpl implements UserRegistratorService {
 
     @Autowired
     public UserRegistrationServiceImpl(UserRepository userRepo,
-                                   VerificationTokenRepository tokenRepo,
-                                   RemoteMailSender remoteMailSender,
-                                   MailMessageBuilder mailMessageBuilder) {
+                                       VerificationTokenRepository tokenRepo,
+                                       RemoteMailSender remoteMailSender,
+                                       MailMessageBuilder mailMessageBuilder,
+                                       UserRolesService userRolesService) {
         this.userRepo = userRepo;
         this.tokenRepo = tokenRepo;
         this.remoteMailSender = remoteMailSender;
         this.mailMessageBuilder = mailMessageBuilder;
+        this.userRolesService = userRolesService;
     }
 
     @Override
@@ -64,6 +65,7 @@ public class UserRegistrationServiceImpl implements UserRegistratorService {
                 System.out.println("EXECUTOR CALLED BY CREATE USER METHOD - " + Thread.currentThread().getName());
 
                 userRepo.save(user);
+                userRolesService.setRole(user, UserRole.ROLE_PENDING);
                 tokenRepo.save(token);
 
 
@@ -71,8 +73,8 @@ public class UserRegistrationServiceImpl implements UserRegistratorService {
                         .setTo(new String[]{user.getUsername()})
                         .setSubject("Registration Confirmation")
                         .setText("To confirm your e-mail address, please click the link below:\n"
-                                /*+ appUrl + */ + "http://localhost:8091" + "/verify/" + token.getToken())
-                        .buildMessage();                                    // /reg
+                                + appUrl + "/reg/verify/" + token.getToken())
+                        .buildMessage();
 
                 remoteMailSender.sendMail(rmm);
             }catch(MailServiceNotAvailableException e){
@@ -99,33 +101,19 @@ public class UserRegistrationServiceImpl implements UserRegistratorService {
         // for faster response time of registration method.
         // Note how lambda expression can implement Runnable on a fly.
 
-
-
         executor.execute(() ->{
 
             System.out.println("VERIFY TOKEN METHOD CALLED BY - " + Thread.currentThread().getName());
 
-            List<Role> roles = new ArrayList<>();
-            roles.add(new Role("ROLE_USER"));
-            // if token is found, get current user, and set enabled to true
-
             User user = vt.getUser();
-            userRepo.delete(user);
+
             user.setEnabled(true);
             user.setAccountNonExpired(true);
             user.setAccountNonLocked(true);
             user.setCredentialsNonExpired(true);
+            userRolesService.changeRole(user, UserRole.ROLE_PENDING, UserRole.ROLE_USER);
 
-            user.setRoles(roles);
-            //user.setRoles(roles);
-
-            System.out.println("@@@@@@@@@@@@@@@@@@@@ " + user.toString());
-
-            // Need to figure out efficient way to add, remove, change authorities.
-            // user.setAuthority(new Authority("USER"));
-
-            userRepo.save(user);
-            //tokenRepo.delete(vt);
+            tokenRepo.delete(vt);
         });
 
     }
