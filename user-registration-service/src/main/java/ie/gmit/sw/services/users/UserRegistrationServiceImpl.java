@@ -111,6 +111,7 @@ public class UserRegistrationServiceImpl implements UserRegistratorService {
             user.setAccountNonExpired(true);
             user.setAccountNonLocked(true);
             user.setCredentialsNonExpired(true);
+            userRepo.save(user);
             userRolesService.changeRole(user, UserRole.ROLE_PENDING, UserRole.ROLE_USER);
 
             tokenRepo.delete(vt);
