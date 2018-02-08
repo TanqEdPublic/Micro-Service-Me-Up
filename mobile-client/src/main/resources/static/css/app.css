@@ -1,0 +1,35 @@
+.button{
+    width:50%;
+}
+#home-btn{
+    margin-top: 20%;
+}
+.welcome{
+    text-align: center;
+    color: #ffba6c;
+    font-family: "Abyssinica SIL";
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.gap{
+    margin-top: 20px;
+}
+body {
+    background-image: url("img/background.jpg");
+}
+.nav-style{
+    background: aliceblue;
+}
+h2{
+    color: purple;
+}
+.blue{
+    color: blue;
+}
+.green{
+    color: yellow;
+}
+#displayUser{
+    width: auto;
+}
