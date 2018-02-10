@@ -1,5 +1,6 @@
 package ie.gmit.sw.Controller;
 
+import ie.gmit.sw.Model.UserDetail;
 import ie.gmit.sw.Service.UserService;
 import ie.gmit.sw.domain.ProfileRequest;
 import ie.gmit.sw.domain.ProfileResponse;
@@ -24,5 +25,10 @@ public class MainController {
     @RequestMapping( path = "/userdetail/delete", method = RequestMethod.POST)
     public ProfileResponse deleteUserDetail(@RequestBody ProfileRequest request) throws Throwable {
         return userService.deleteUserDetail(request);
+    }
+
+    @RequestMapping( path = "/userdetail/get", method = RequestMethod.GET)
+    public UserDetail getUserDetail(@RequestParam("email") String email) throws Throwable {
+        return userService.getUserByEmail(email);
     }
 }
