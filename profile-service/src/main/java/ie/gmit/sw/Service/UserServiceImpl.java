@@ -38,9 +38,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ProfileResponse updateUserDetail(ProfileRequest request) {
-        deleteUserDetail(request);
-        mongoDB.save(UserDetailFactory.create(request));
-        logger.info("@@@ UserDetail: " + request.getEmail() + " is updated! @@@");
+        UserDetail old_user = getUserByEmail(request.getEmail());
+        if (old_user == null){
+            mongoDB.save(UserDetailFactory.create(request));
+            logger.info("@@@ UserDetail: " + request.getEmail() + " is added! @@@");
+        }else{
+            deleteUserDetail(request);
+            mongoDB.save(UserDetailFactory.create(request));
+            logger.info("@@@ UserDetail: " + request.getEmail() + " is updated! @@@");
+        }
+
         return new ProfileResponse("update success !");
     }
 
