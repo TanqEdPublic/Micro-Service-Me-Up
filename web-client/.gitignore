@@ -42,3 +42,7 @@ nbdist/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# node stuff
+
+package-lock.json

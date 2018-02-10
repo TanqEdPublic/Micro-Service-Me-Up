@@ -18,6 +18,11 @@ module.exports = {
                     cacheDirectory: true,
                     presets: ['es2015', 'react']
                 }
+            },
+            {
+                test: /\.css$/,
+                includes: /(node_modules)/,
+                loaders: ['style-loader', 'css-loader']
             }
         ]
     }
