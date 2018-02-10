@@ -3,7 +3,7 @@
 'use strict';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app';
-import 'bootstrap/dist/css/bootstrap.css';
+import Layout from './layout/base';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Layout />, document.getElementById('root'));

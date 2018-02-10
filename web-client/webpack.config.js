@@ -21,10 +21,13 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                includes: /(node_modules)/,
+
                 loaders: ['style-loader', 'css-loader']
             }
         ]
     }
 
 };
+
+
+// exclude: /(node_modules)/,

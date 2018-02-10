@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
 
 class NavigationBar extends Component{
