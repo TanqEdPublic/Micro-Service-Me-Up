@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react';
 
-import Header from './common/header';
-import Footer from './common/footer';
+import Header from './layout/header';
+import Footer from './layout/footer';
 
 import './main.css';
 

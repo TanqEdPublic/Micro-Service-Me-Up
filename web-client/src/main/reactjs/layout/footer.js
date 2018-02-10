@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import './header.css';
+import './css/header.css';
 
 class Footer extends Component{
 
