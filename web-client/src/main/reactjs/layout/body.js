@@ -1,30 +1,18 @@
+'use strict';
+
 import React, { Component } from 'react';
 
-import {Navbar, Nav, NavItem} from 'react-bootstrap';
-class NavigationMenu extends Component{
+class Body extends Component{
 
     render(){
 
         return(
-            <Navbar>
-                <Navbar.Header>
-                    <Navbar.Brand>
-                        <a href="#home">React-Bootstrap</a>
-                    </Navbar.Brand>
-                </Navbar.Header>
-                <Nav>
-                    <NavItem eventKey={1} href="#">
-                        Link
-                    </NavItem>
-                    <NavItem eventKey={2} href="#">
-                        Link
-                    </NavItem>
-                </Nav>
-            </Navbar>
-
+            <div>
+                <p> Main Body element. </p>
+            </div>
         );
     }
 
 }
 
-export default NavigationMenu;
+export default Body;

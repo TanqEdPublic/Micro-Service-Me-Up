@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import './css/header.css';
 
-import NavigationMenu from './body';
+import NavigationBar from './navigation';
 
 class Header extends Component{
 
@@ -11,7 +11,9 @@ class Header extends Component{
         return(
             <header className="App-header">
                 <h1 className="App-title">Welcome to Micro Service Me Up!</h1>
-                <NavigationMenu/>
+                <br/>
+                <br/>
+                <NavigationBar/>
             </header>
         );
     }
