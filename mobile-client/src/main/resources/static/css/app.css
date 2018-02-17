@@ -6,7 +6,6 @@
 }
 .welcome{
     text-align: center;
-    color: #ffba6c;
     font-family: "Abyssinica SIL";
     font-size: 26px;
     font-weight: bold;
@@ -16,18 +15,15 @@
     margin-top: 20px;
 }
 body {
-    background-image: url("img/background.jpg");
+    background: lightskyblue;
 }
 .nav-style{
     background: aliceblue;
 }
-h2{
-    color: purple;
-}
 .blue{
     color: blue;
 }
-.green{
+.yellow{
     color: yellow;
 }
 #displayUser{
