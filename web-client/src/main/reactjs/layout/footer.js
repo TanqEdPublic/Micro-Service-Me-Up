@@ -8,9 +8,12 @@ class Footer extends Component{
 
     render() {
         return(
-            <footer className="border-top border-bottom fixed-bottom">
-                <h1 className="App-disclaimer text-justify text-center" >About Services...</h1>
-            </footer>
+                <div className="row border border-dark footer">
+                    <div className="col-sm ">
+                        <h1 className="app-disclaimer text-justify text-center" >About Services...</h1>
+                    </div>
+                    <div className="col-sm ">Bla bla bla</div>
+                </div>
         );
     }
 }

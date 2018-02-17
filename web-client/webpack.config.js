@@ -1,4 +1,5 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
     entry: './src/main/reactjs/index.js',
@@ -25,7 +26,16 @@ module.exports = {
                 loaders: ['style-loader', 'css-loader']
             }
         ]
-    }
+    },
+    plugins:[
+        new webpack.ProvidePlugin({
+            jQuery: 'jquery',
+            $: 'jquery',
+            jquery: 'jquery',
+            Tether: 'Tether',
+            tether: 'tether'
+        })
+    ]
 
 };
 

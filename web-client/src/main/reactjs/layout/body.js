@@ -9,7 +9,7 @@ class Body extends Component{
     render(){
 
         return(
-            <div className="App-body">
+            <div className="app-body">
                 <p className="text-justify text-center"> Main Body element. Very long boring text
                     Very long boring textVery long boring textVery long boring
                     textVery long boring text

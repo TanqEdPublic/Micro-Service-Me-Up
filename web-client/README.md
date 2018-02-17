@@ -21,3 +21,17 @@ To update bundle in Tomcat cache need to repackage a project.
 ### Webpack Loaders
 
 Ref. page: https://webpack.js.org/concepts/loaders/
+
+### Webpack Plugins 
+
+To solve issues with integrating ReactJs with other
+js scripts like jQuery or Tether, we can use plugins section
+in `webpack.config.js`.
+
+Example solving an issue: https://stackoverflow.com/questions/40288268/using-jquery-and-bootstrap-with-es6-import-for-react-app
+
+### Limitations 
+
+Need to repackage Spring Boot application that hosts ReactJs
+client in order for Tomcat to serve new client bundle.
+

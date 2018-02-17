@@ -4,6 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Layout from './layout/base';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'jquery/dist/jquery.min.js';
+import 'tether/dist/js/tether.min.js';
 
 ReactDOM.render(<Layout />, document.getElementById('root'));
