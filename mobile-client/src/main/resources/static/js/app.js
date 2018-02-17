@@ -44,8 +44,12 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
 
 }).controller('user', function($scope, $http) {
     $http.get('/dashboard/user').success(function(data) {
-        $scope.user = data;
+    	$scope.user = data;
     });
+    $http.get('/dashboard/userdetail').success(function(detail) {
+		$scope.userdetail = detail;
+	});
+
 
 });
 
