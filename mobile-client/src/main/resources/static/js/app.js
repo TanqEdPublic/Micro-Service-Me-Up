@@ -43,22 +43,32 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
 	});
 
 }).controller('user', function($scope, $http) {
-    $http.get('/dashboard/user').success(function(data) {
-    	$scope.user = data;
-    });
-    $http.get('/dashboard/userdetail').success(function(detail) {
-		$scope.userdetail = detail;
-
-	});
-
-    var userdetail = {
-        profileImg:'',
+    $scope.userdetail = {
+        // profileImg:'',
         email:'',
         nickName:'',
         gender:'',
         dob:'',
         phoneNum:'',
         aboutMe:''
+    };
+    $http.get('/dashboard/user').success(function(data) {
+    	$scope.user = data;
+    });
+    $http.get('/dashboard/userdetail').success(function(detail) {
+		$scope.userdetail = detail;
+	});
+
+    $scope.updateUserInfo = function() {
+    	var yes = confirm('update user detail ?');
+    	if(yes){
+            $http.post('/dashboard/updateUserdetail', $scope.userdetail).success(function(data) {
+                if(data != null){
+                    alert(data.status);
+                }
+            });
+		}
+
     };
 });
 
@@ -68,3 +78,5 @@ $('.nav a').on('click', function(){
     $('.btn-navbar').click(); //bootstrap 2.x
     $('.navbar-toggle').click() //bootstrap 3.x by Richard
 });
+// user detail info
+// update user detail

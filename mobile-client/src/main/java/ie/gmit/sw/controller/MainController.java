@@ -1,15 +1,22 @@
 package ie.gmit.sw.controller;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import ie.gmit.sw.model.UserDetail;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sun.net.www.http.HttpClient;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.Map;
@@ -35,6 +42,30 @@ public class MainController {
                 UserDetail.class);
         System.out.println("");
         return detail;
+    }
+    @PostMapping("/updateUserdetail")
+    public String updateUserdetail(@RequestBody UserDetail user) throws Exception {
+        String url = "http://54.201.208.226:8086/profile/userdetail/update";
+        CloseableHttpClient client = HttpClientBuilder.create().build();
+        // POST method
+        HttpPost post = new HttpPost(url);
+        // add header
+        post.setHeader("Content-Type", "application/json");
+        // add data
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonstr = mapper.writeValueAsString(user);
+        StringEntity para = new StringEntity(jsonstr);
+        post.setEntity(para);
+        // receive response
+        HttpResponse response = client.execute(post);
+        if (response == null){
+            client.close();
+        }
+        // read response
+        BufferedReader rd = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent()));
+        String result = rd.readLine();
+        return result;
     }
 
     @RequestMapping("/message")
