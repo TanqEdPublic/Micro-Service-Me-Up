@@ -3,5 +3,44 @@
     <link rel="stylesheet" href="css/app.css"/>
 </head>
 <h2>Dashboard</h2>
-<div class="col-xs-12">user: {{user.name}}</div>
-<div class="col-xs-12">userdetail: {{userdetail}}</div>
+<form style="margin-top: 10%">
+    <div class="form-group row">
+        <label class="col-xs-4 col-form-label">email</label>
+        <div class="col-xs-8">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={{user.name}}>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-xs-4 col-form-label">nickname</label>
+        <div class="col-xs-8">
+            <input type="text" class="form-control-plaintext" value={{userdetail.nickName}}>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-xs-4 col-form-label">gender</label>
+        <div class="col-xs-4">
+            <select class="form-control" onselect="userdetail.gender">
+                <option>male</option>
+                <option>female</option>
+                <option>other</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-xs-4 col-form-label">dob</label>
+        <div class="col-xs-8">
+            <input type="text" class="form-control-plaintext"
+                   placeholder="dd/mm/yyyy" value={{userdetail.dob}}>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-xs-4 col-form-label">phone</label>
+        <div class="col-xs-8">
+            <input type="text" class="form-control-plaintext" value={{userdetail.phoneNum}}>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>about me</label>
+        <textarea class="form-control" rows="3">{{userdetail.aboutMe}}</textarea>
+    </div>
+</form>

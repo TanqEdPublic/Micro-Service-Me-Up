@@ -48,9 +48,18 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
     });
     $http.get('/dashboard/userdetail').success(function(detail) {
 		$scope.userdetail = detail;
+
 	});
 
-
+    var userdetail = {
+        profileImg:'',
+        email:'',
+        nickName:'',
+        gender:'',
+        dob:'',
+        phoneNum:'',
+        aboutMe:''
+    };
 });
 
 // jquery code,
