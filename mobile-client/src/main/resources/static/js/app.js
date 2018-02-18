@@ -52,8 +52,10 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
         phoneNum:'',
         aboutMe:''
     };
+    var useremail = "";
     $http.get('/dashboard/user').success(function(data) {
     	$scope.user = data;
+    	useremail = data.name;
     });
     $http.get('/dashboard/userdetail').success(function(detail) {
 		$scope.userdetail = detail;
@@ -62,6 +64,7 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
     $scope.updateUserInfo = function(detail) {
     	var yes = confirm('update user detail ?');
     	if(yes){
+    		detail.email = useremail;
             $http.post('/dashboard/updateUserdetail', detail).success(function(data) {
                 if(data != null){
                     alert(data.status);
