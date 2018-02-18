@@ -59,10 +59,10 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
 		$scope.userdetail = detail;
 	});
 
-    $scope.updateUserInfo = function() {
+    $scope.updateUserInfo = function(detail) {
     	var yes = confirm('update user detail ?');
     	if(yes){
-            $http.post('/dashboard/updateUserdetail', $scope.userdetail).success(function(data) {
+            $http.post('/dashboard/updateUserdetail', detail).success(function(data) {
                 if(data != null){
                     alert(data.status);
                 }
