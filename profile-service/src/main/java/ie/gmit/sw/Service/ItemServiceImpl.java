@@ -22,7 +22,11 @@ public class ItemServiceImpl implements ItemService{
     // Before call this method, make sure all attributes in Item is not null !
     @Override
     public ProfileResponse createItem(Item item) throws Exception {
-        // save user details
+        //check if title is null
+        if(item.getTitle() == null || item.getTitle() == ""){
+            return new ProfileResponse("item title cannot be null or empty !");
+        }
+        // save item
         try {
             mongoDB.save(item);
         } catch (Exception exc) {
