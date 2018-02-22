@@ -1,1 +1,30 @@
-<h2>Dashboard</h2><div>Message: {{message}}</div>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" href="webjars/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body>
+<h2>Dashboard</h2>
+<p>Services pushed:</p>
+<table class="table table-fixed">
+    <thead>
+        <tr>
+            <td col-xs-4>Date</td>
+            <td col-xs-4>Pusher</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat-start="i in items">
+            <td col-xs-4>{{ i.date }}</td>
+            <td col-xs-4>{{ i.email }}</td>
+        </tr>
+        <tr>
+            <td col-xs-8>Title: {{ i.title }}</td>
+        </tr>
+        <tr ng-repeat-end="">
+            <td col-xs-8>Content: {{ i.content }}</td>
+        </tr>
+    </tbody>
+
+</table>
+</body>

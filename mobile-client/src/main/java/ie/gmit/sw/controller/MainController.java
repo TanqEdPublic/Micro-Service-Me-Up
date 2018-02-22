@@ -1,6 +1,7 @@
 package ie.gmit.sw.controller;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import ie.gmit.sw.model.Item;
 import ie.gmit.sw.model.UserDetail;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -18,8 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.security.Principal;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/dashboard")
@@ -68,9 +68,22 @@ public class MainController {
         return result;
     }
 
-    @RequestMapping("/message")
-    public Map<String, Object> dashboard() {
-        return Collections.<String, Object> singletonMap("message", "Yay!");
+    @RequestMapping("/item/all")
+    public List<Item> dashboard() throws Exception{
+        String url = "http://54.201.208.226:8086/profile/item/all";
+        CloseableHttpClient client = HttpClientBuilder.create().build();
+        // GET method
+        HttpGet request = new HttpGet(url);
+        // receive response
+        HttpResponse response = client.execute(request);
+        if (response == null){
+            client.close();
+        }
+        // read UserDetail from response
+        ObjectMapper objectMapper=new ObjectMapper();
+        List<Item> items = Arrays.asList(objectMapper.readValue
+                (response.getEntity().getContent(), Item[].class));
+        return items;
     }
 
     @RequestMapping("/user")

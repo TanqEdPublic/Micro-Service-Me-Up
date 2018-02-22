@@ -11,6 +11,9 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
 			}).when('/user', {
                 templateUrl : 'user.html',
                 controller : 'user'
+            }).when('/logined', {
+                templateUrl : 'logined.html',
+                controller : 'logined'
             });
 
 		}).controller('navigation', function($scope, $http, $window, $route) {
@@ -21,6 +24,7 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
 				$http.get('/dashboard/user').success(function(data) {
 					$scope.user = data;
 					$scope.authenticated = true;
+					$window.location.href = '#/logined';
 				}).error(function() {
 					$scope.authenticated = false;
 				});
@@ -34,13 +38,13 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
 				});
 		};
 }).controller('home', function($scope, $window) {
-}).controller('dashboard', function($scope, $resource) {
-
-	$resource('/dashboard/message', {}).get({}, function(data) {
-		$scope.message = data.message;
-	}, function() {
-		$scope.message = '';
-	});
+}).controller('logined', function($scope, $window) {
+}).controller('dashboard', function($scope, $http) {
+    $http.get('/dashboard/item/all').success(function(data) {
+		$scope.items = data;
+	}).error(function(data, status) {
+        alert('get data error!');
+    });
 
 }).controller('user', function($scope, $http) {
     $scope.userdetail = {
