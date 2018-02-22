@@ -6,25 +6,23 @@
 <body>
 <h2>Dashboard</h2>
 <p>Services pushed:</p>
-<table class="table table-fixed">
-    <thead>
-        <tr>
-            <td col-xs-4>Date</td>
-            <td col-xs-4>Pusher</td>
-        </tr>
-    </thead>
-    <tbody>
+<div class="row">
+    <label class="col-xs-offset-1">Date</label>
+    <label class="col-xs-offset-3">Pusher</label>
+</div>
+<div id="tbAllItems">
+    <table class="table table-bordered">
         <tr ng-repeat-start="i in items">
-            <td col-xs-4>{{ i.date }}</td>
+            <td col-xs-4 class="blue">{{ i.date }}</td>
             <td col-xs-4>{{ i.email }}</td>
         </tr>
         <tr>
-            <td col-xs-8>Title: {{ i.title }}</td>
+            <td col-xs-8 colspan="2"><span class="gray">Title: </span>{{ i.title }}</td>
         </tr>
         <tr ng-repeat-end="">
-            <td col-xs-8>Content: {{ i.content }}</td>
+            <td col-xs-8 colspan="2"><span class="gray">Content: </span>{{ i.content }}</td>
         </tr>
-    </tbody>
+    </table>
+</div>
 
-</table>
 </body>

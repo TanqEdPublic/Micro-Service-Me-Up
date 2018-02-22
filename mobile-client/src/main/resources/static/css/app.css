@@ -23,6 +23,9 @@ body {
 .blue{
     color: blue;
 }
+.gray{
+    color: gray;
+}
 .yellow{
     color: yellow;
 }
@@ -37,4 +40,8 @@ body {
     width: 300px;
     background: white;
     border: 1px solid black;
+}
+#tbAllItems {
+    overflow-y:scroll;
+    height:60%;
 }
