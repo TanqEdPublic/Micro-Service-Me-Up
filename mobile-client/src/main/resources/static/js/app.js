@@ -14,6 +14,9 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
             }).when('/logined', {
                 templateUrl : 'logined.html',
                 controller : 'logined'
+            }).when('/myitem', {
+                templateUrl : 'myItem.html',
+                controller : 'myItem'
             });
 
 		}).controller('navigation', function($scope, $http, $window, $route) {
@@ -39,6 +42,12 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
 		};
 }).controller('home', function($scope, $window) {
 }).controller('logined', function($scope, $window) {
+}).controller('myItem', function($scope, $window, $http) {
+    $http.get('/dashboard/item/get').success(function(data) {
+        $scope.items = data;
+    }).error(function(data, status) {
+        alert('get data error!');
+    });
 }).controller('dashboard', function($scope, $http) {
     $http.get('/dashboard/item/all').success(function(data) {
 		$scope.items = data;

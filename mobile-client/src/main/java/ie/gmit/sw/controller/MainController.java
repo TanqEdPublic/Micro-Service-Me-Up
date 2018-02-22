@@ -86,6 +86,25 @@ public class MainController {
         return items;
     }
 
+    @RequestMapping("/item/get")
+    public List<Item> myitem(Principal user) throws Exception{
+        String username = user.getName();
+        String url = "http://54.201.208.226:8086/profile/item?email="+username;
+        CloseableHttpClient client = HttpClientBuilder.create().build();
+        // GET method
+        HttpGet request = new HttpGet(url);
+        // receive response
+        HttpResponse response = client.execute(request);
+        if (response == null){
+            client.close();
+        }
+        // read UserDetail from response
+        ObjectMapper objectMapper=new ObjectMapper();
+        List<Item> items = Arrays.asList(objectMapper.readValue
+                (response.getEntity().getContent(), Item[].class));
+        return items;
+    }
+
     @RequestMapping("/user")
     public Principal user(Principal user) {
         return user;
