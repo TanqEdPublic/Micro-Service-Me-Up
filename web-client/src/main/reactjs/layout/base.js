@@ -3,8 +3,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Navigation from './navigation';
-import Body from './body';
+import Navigation from './applicaton-router';
 import Footer from './footer';
 
 class Layout extends Component{
@@ -16,13 +15,6 @@ class Layout extends Component{
             <div className="container-fluid base-layout">
 
                 <Navigation/>
-
-                <div className="row">
-                    <div className="col-sm">
-                        <Body/>
-                    </div>
-                </div>
-
 
                 <Footer/>
 
