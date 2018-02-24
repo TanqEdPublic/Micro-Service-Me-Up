@@ -45,3 +45,7 @@ body {
     overflow-y:scroll;
     height:60%;
 }
+#home-some-blank{
+    margin-top: 10%;
+    text-align: center;
+}
