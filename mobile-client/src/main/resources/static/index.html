@@ -29,7 +29,8 @@
 					<!--<li ng-class="{active:tab('home')}"><a href='#/'>home</a></li>-->
 					<li ng-class="{active:tab('dashboard')}" ng-show="authenticated"><a href='#/dashboard'>dashboard</a></li>
 					<li ng-class="{active:tab('user')}" ng-show="authenticated"><a href='#/user'>user</a></li>
-					<li ng-class="{active:tab('myItem')}"><a href='#/myitem'>my item</a></li>
+					<li ng-class="{active:tab('myItem')}" ng-show="authenticated"><a href='#/myitem'>my item</a></li>
+					<li ng-class="{active:tab('addItem')}" ng-show="authenticated"><a href='#/additem'>add item</a></li>
 					<li ng-show="authenticated"><a href='' ng-click="logout()">logout</a></li>
 				</ul>
 			</div>

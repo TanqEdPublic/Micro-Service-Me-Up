@@ -106,11 +106,34 @@ public class MainController {
         return items;
     }
 
+    @PostMapping("/item/new")
+    public String createItem(@RequestBody Item item) throws Exception {
+        String url = "http://54.201.208.226:8086/profile/item/new";
+        CloseableHttpClient client = HttpClientBuilder.create().build();
+        // POST method
+        HttpPost post = new HttpPost(url);
+        // add header
+        post.setHeader("Content-Type", "application/json");
+        // add data
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonstr = mapper.writeValueAsString(item);
+        StringEntity para = new StringEntity(jsonstr);
+        post.setEntity(para);
+        // receive response
+        HttpResponse response = client.execute(post);
+        if (response == null){
+            client.close();
+        }
+        // read response
+        BufferedReader rd = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent()));
+        String result = rd.readLine();
+        return result;
+    }
+
     @RequestMapping("/user")
     public Principal user(Principal user) {
         return user;
     }
-
-
 
 }

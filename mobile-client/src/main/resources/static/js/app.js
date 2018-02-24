@@ -17,6 +17,9 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
             }).when('/myitem', {
                 templateUrl : 'myItem.html',
                 controller : 'myItem'
+            }).when('/additem', {
+                templateUrl : 'addItem.html',
+                controller : 'addItem'
             });
 
 		}).controller('navigation', function($scope, $http, $window, $route) {
@@ -73,6 +76,31 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
     }).error(function(data, status) {
         alert('get data error!');
     });
+}).controller('addItem', function($scope, $window, $http, $filter) {
+    $scope.item = {
+        email:'',
+        title:'',
+        content:'',
+        date:''
+    };
+    var useremail = "";
+    $http.get('/dashboard/user').success(function(data) {
+        useremail = data.name;
+    });
+    $scope.updateItem = function(item) {
+        var yes = confirm('add this new item ?');
+        if(yes){
+            item.email = useremail;
+            //var date_string = date.getDay()+"/"+date.getMonth()+"/"+date.getFullYear();
+            item.date = $filter('date')(new Date(), 'dd-MM-yyyy');
+            $http.post('/dashboard/item/new', item).success(function(data) {
+                if(data != null){
+                    alert(data.status);
+                }
+            });
+        }
+    };
+
 }).controller('dashboard', function($scope, $http) {
     $http.get('/dashboard/item/all').success(function(data) {
 		$scope.items = data;
