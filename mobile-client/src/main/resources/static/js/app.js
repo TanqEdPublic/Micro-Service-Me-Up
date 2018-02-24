@@ -41,7 +41,32 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
 				});
 		};
 }).controller('home', function($scope, $window) {
-}).controller('logined', function($scope, $window) {
+}).controller('logined', function($scope, $http) {
+	switch (new Date().getHours()) {
+        case 12:
+        case 13:
+        case 14:
+        case 15:
+        case 16:
+        case 17:
+        case 18:
+            $scope.welcomeMsg = "Good Afternoon ~.~";
+            break;
+        case 19:
+        case 20:
+        case 21:
+        case 22:
+        case 23:
+        case 24:
+            $scope.welcomeMsg = "Good Evening ~.~";
+            break;
+        default:
+            $scope.welcomeMsg = "Good Morning ~.~";
+	}
+    $http.get('/dashboard/user').success(function(data) {
+        $scope.email = data.name;
+    });
+
 }).controller('myItem', function($scope, $window, $http) {
     $http.get('/dashboard/item/get').success(function(data) {
         $scope.items = data;
@@ -71,7 +96,9 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
     	useremail = data.name;
     });
     $http.get('/dashboard/userdetail').success(function(detail) {
-		$scope.userdetail = detail;
+    	if(detail != null){
+            $scope.userdetail = detail;
+		}
 	});
 
     $scope.updateUserInfo = function(detail) {

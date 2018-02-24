@@ -35,6 +35,7 @@ public class MainController {
         HttpResponse response = client.execute(request);
         if (response == null){
             client.close();
+            return new UserDetail();
         }
         // read UserDetail from response
         ObjectMapper objectMapper=new ObjectMapper();
