@@ -125,7 +125,10 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
             });
         }
     };
-
+    $scope.resetForm = function() {
+        $scope.item.title = "";
+        $scope.item.content = "";
+    };
 
 }).controller('dashboard', function($scope, $http, $window) {
     $http.get('/dashboard/item/all').success(function(data) {
@@ -177,7 +180,14 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
                 }
             });
 		}
+    };
 
+    $scope.resetForm = function() {
+        $http.get('/dashboard/userdetail').success(function(detail) {
+            if(detail != null){
+                $scope.userdetail = detail;
+            }
+        });
     };
 });
 
