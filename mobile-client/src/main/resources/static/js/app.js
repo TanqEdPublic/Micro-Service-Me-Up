@@ -73,6 +73,13 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
 }).controller('myItem', function($scope, $window, $http) {
     $http.get('/dashboard/item/get').success(function(data) {
         $scope.items = data;
+        if(data.length == 0){
+            $scope.message="you do not have item, please add ... ...";
+            $scope.table_header=null;
+        }else{
+            $scope.message=null;
+            $scope.table_header="Date";
+        }
     }).error(function(data, status) {
         alert('get data error!');
     });
@@ -87,9 +94,10 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
                     $scope.items.splice(index, 1);
                 }
             });
-
         }
-
+    };
+    $scope.nav_additem = function() {
+        $window.location.href = '#/additem';
     };
 
 }).controller('addItem', function($scope, $window, $http, $filter) {
@@ -112,18 +120,32 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
             $http.post('/dashboard/item/new', item).success(function(data) {
                 if(data != null){
                     alert(data.status);
+                    $window.location.href = '#/myitem';
                 }
             });
         }
     };
 
-}).controller('dashboard', function($scope, $http) {
+
+}).controller('dashboard', function($scope, $http, $window) {
     $http.get('/dashboard/item/all').success(function(data) {
+        if(data.length == 0){
+            $scope.message="no item, please add ... ...";
+            $scope.table_header_date=null;
+            $scope.table_header_pusher=null;
+        }else{
+            $scope.message=null;
+            $scope.table_header_date="Date";
+            $scope.table_header_pusher="Pusher";
+        }
 		$scope.items = data;
 	}).error(function(data, status) {
         alert('get data error!');
     });
 
+    $scope.nav_myitem = function() {
+        $window.location.href = '#/myitem';
+    };
 }).controller('user', function($scope, $http) {
     $scope.userdetail = {
         // profileImg:'',
@@ -165,5 +187,3 @@ $('.nav a').on('click', function(){
     $('.btn-navbar').click(); //bootstrap 2.x
     $('.navbar-toggle').click() //bootstrap 3.x by Richard
 });
-// user detail info
-// update user detail
