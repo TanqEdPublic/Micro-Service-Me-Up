@@ -76,6 +76,22 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ]).config(
     }).error(function(data, status) {
         alert('get data error!');
     });
+
+    // index here used to delete current item from items
+    $scope.delete = function(title,index) {
+        var yes = confirm('delete item: '+title+' ?');
+        if(yes){
+            $http.post('/dashboard/item/delete?title=' + title).success(function(data) {
+                if(data != null){
+                    alert(data.status);
+                    $scope.items.splice(index, 1);
+                }
+            });
+
+        }
+
+    };
+
 }).controller('addItem', function($scope, $window, $http, $filter) {
     $scope.item = {
         email:'',
