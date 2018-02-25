@@ -1,6 +1,10 @@
 .text1 {
     margin: 6px 0 6px 0;
-    color: #1C6ED1;
+	color: #1C6ED1;
+}
+
+.mediumtext {
+	font-size: 36px;
 }
 
 .text2 {
@@ -23,7 +27,7 @@
 	border: 0px solid #CCC;
 	margin-left: 35%;
 	padding: 20px;
-	width: 350px;
+	width: 450px;
 	background-color: aliceblue;
 
 }

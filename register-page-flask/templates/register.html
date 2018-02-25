@@ -4,8 +4,6 @@
     <link rel="stylesheet" href="{{ url_for("static", filename="css/register.css") }}" type="text/css"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Tanqed</title>
-
-    <link rel="stylesheet" href="{{ url_for("static", filename="css/index.css") }}" type="text/css"/>
 </head>
 <body>
 <div id="page">
@@ -15,18 +13,20 @@
         <div class="border">
             <img width="100" height="100" src="{{url_for("static", filename="images/register.png")}}" />
             <form id="formRegister" action="/register" method="post">
-                <p class="text1">email：</p>
+                <p class="text1" style="font-size:28px;">email</p>
                 <p class="text1">
-                    <input class="text1" name="username" type="text" style="width: 240px; height: 25px;" />
+                    <input class="text1" name="username" type="text" style="width: 300px; height: 30px;
+                    font-size:26px;" />
                 </p>
-                <p class="text1">password：</p>
+                <p class="text1" style="font-size:28px;">password</p>
                 <p class="text1">
-                    <input class="text1" name="password" type="password" style="width: 240px; height: 25px;" />
+                    <input class="text1" name="password" type="password" style="width: 300px; height: 30px;
+                    font-size:26px;" />
                 </p>
                 <p class="text3">{{get_flashed_messages()[0]}} </p>
                 <p class="text1">
                     <button onclick="submit" style="margin: 0; padding: 0; border-width: 0;">
-                        <img width="70" height="25"
+                        <img width="140" height="50"
                              src="{{url_for("static", filename="images/registerButton.png")}}" />
                     </button>
                 </p>
