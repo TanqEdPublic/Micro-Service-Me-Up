@@ -3,8 +3,8 @@
 'use strict';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Layout from './layout/base';
+import Navigation from './layout/applicaton-router';
 import 'jquery/dist/jquery.min.js';
 import 'tether/dist/js/tether.min.js';
 
-ReactDOM.render(<Layout />, document.getElementById('root'));
+ReactDOM.render(<Navigation/>, document.getElementById('root'));

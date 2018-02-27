@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import './css/body.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class Body extends Component{
+class Main extends Component{
 
     render(){
 
         return(
-            <div className="app-body">
-                <p className="text-justify text-center"> Main Body element. Very long boring text
+            <div className="content-body text-justify text-center">
+                <p> Main Body element. Very long boring text
                     Very long boring textVery long boring textVery long boring
                     textVery long boring text
                 </p>
@@ -20,4 +20,4 @@ class Body extends Component{
 
 }
 
-export default Body;
+export default Main;

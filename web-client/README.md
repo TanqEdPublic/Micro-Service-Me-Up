@@ -35,3 +35,63 @@ Example solving an issue: https://stackoverflow.com/questions/40288268/using-jqu
 Need to repackage Spring Boot application that hosts ReactJs
 client in order for Tomcat to serve new client bundle.
 
+### ReactJS Router
+
+To manage navigation between react components,
+you need to get React Router components.
+
+* ``npm install react-router --save``
+* ``npm install react-router-dom --save``
+
+Add this dependencies to ``package.json`` for 
+webpack to include components into bundle.
+
+Three important components to know.
+
+* ``BrowserRouter`` - This is the Router itself. Uses HTML5 history API.
+Synchronizes UI content to what is written in address bar (URL).
+
+* ``Route`` - Links component to it's respective URI. Responsible
+for rendering of the UI.
+
+* ``Link`` - URL wrapper component that is used for redirect.
+
+__Additional libraries__
+ 
+* ``createBrowserHistory`` - Comes with ``react-router`` library.
+This library makes sure that application history is maintained
+consistently in respect to user actions. Added as a parameter 
+to router component ``BrowserRouter``
+
+
+__Example__
+
+````JavaScript
+import React from "react"
+import {BrowserRouter, Route, Link} from "react-router-dom"
+import createBrowserHistory from "history/createBrowserHistory"
+import Home from './home';
+
+const Home = () => (
+    <Home/>
+)
+
+class Navigation extends React.Component {
+    render() {
+        return (
+            
+            <BrowserRouter history ={history}>
+                <div>
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                    </ul>
+                </div>
+                <Route exact path="/" component = {Home}/>
+            </BrowserRouter>
+        )
+    }
+}
+export default Navigation
+````
