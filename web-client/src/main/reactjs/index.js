@@ -3,7 +3,7 @@
 'use strict';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Navigation from './layout/applicaton-router';
+import Navigation from './components/applicaton-router';
 import 'jquery/dist/jquery.min.js';
 import 'tether/dist/js/tether.min.js';
 
