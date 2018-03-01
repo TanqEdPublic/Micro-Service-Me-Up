@@ -1,3 +1,4 @@
+
 var path = require('path');
 var webpack = require('webpack');
 
@@ -10,20 +11,28 @@ module.exports = {
         filename: './src/main/resources/static/built/bundle.js'
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: path.join(__dirname, '.'),
                 exclude: /(node_modules)/,
-                loader: 'babel',
-                query: {
-                    cacheDirectory: true,
-                    presets: ['es2015', 'react']
-                }
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        cacheDirectory: true,
+                        presets: [
+                            ["env", {
+                                "targets": {
+                                    "node": "current"
+                                }
+                            }],
+                            'react'
+                        ]
+                    }
+                }]
             },
             {
                 test: /\.css$/,
-
-                loaders: ['style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader']
             }
         ]
     },
@@ -33,11 +42,17 @@ module.exports = {
             $: 'jquery',
             jquery: 'jquery',
             Tether: 'Tether',
-            tether: 'tether'
+            tether: 'tether',
+            Popper: ['popper.js', 'default']
         })
     ]
-
 };
+
+/*
+
+
+
+* */
 
 
 // exclude: /(node_modules)/,

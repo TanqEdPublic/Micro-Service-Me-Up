@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import '../css/body.css';
+import './css/body.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Registration extends Component{
