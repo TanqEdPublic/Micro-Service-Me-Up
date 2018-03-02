@@ -3,7 +3,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-    entry: './src/main/reactjs/index.js',
+    entry: ['./src/main/reactjs/index.js'],
     devtool: 'sourcemaps',
     cache: true,
     output: {
@@ -32,7 +32,10 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: [
+                    { loader: 'style-loader' },
+                    { loader: 'css-loader' }
+                ]
             }
         ]
     },
@@ -41,8 +44,9 @@ module.exports = {
             jQuery: 'jquery',
             $: 'jquery',
             jquery: 'jquery',
-            Tether: 'Tether',
-            tether: 'tether',
+            "window.jQuery": "jquery",
+            Tether: 'tether',
+            "window.Tether": 'tether',
             Popper: ['popper.js', 'default']
         })
     ]
