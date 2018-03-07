@@ -5,12 +5,6 @@ import createBrowserHistory from "history/createBrowserHistory"
 
 import {Container, Row, Col} from 'reactstrap';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'jquery/dist/jquery.min';
-// import 'tether/dist/js/tether.min';
-// import 'bootstrap/dist/js/bootstrap.min.js';
-// import 'popper.js';
-
 import './css/body.css'
 
 import Main from './home';
@@ -68,6 +62,22 @@ const NoMatch = ({ location }) => (
 );
 
 class Application extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            authenticated: true
+        };
+    }
+
+    // used in login
+    onAuthenticated(val) {
+        this.setState({
+            authenticated: val
+        })
+    };
+
     render() {
         return (
             <Router history ={history}>
@@ -75,7 +85,7 @@ class Application extends React.Component {
                 <Container fluid={true}>
                     <Row className="mb-5">
                         <Col>
-                            <Navigation/>
+                            <Navigation passAuth={this.state.authenticated}/>
                         </Col>
                     </Row>
                     <hr/>

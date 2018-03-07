@@ -1,0 +1,24 @@
+
+.content-body{
+    margin: 10px;
+    padding: 20px;
+    font-size: 18px;
+    color: black;
+    background-color: whitesmoke;
+
+    min-height: 100vh;
+}
+
+/*.app-body {*/
+    /**/
+     /*padding: 20px;*/
+     /*color: darkgray;*/
+     /*height: 100%;*/
+/*}*/
+
+.my-typography {
+    padding: 20px;
+    font-size: 18px;
+    color: black;
+    background-color: whitesmoke;
+}

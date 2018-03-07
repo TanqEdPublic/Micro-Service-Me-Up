@@ -46,24 +46,24 @@ const ServicePanel = () => (
 
 );
 
-class Navigation extends React.Component {
-    constructor(props) {
-        super(props);
+// Since React 14, we can write a clean functions instead of classes
+// to represent the component.
+// We can pass props as a parameter to a function that contains data
+// or do distructurisation of it props = {param1, param2, etc}.
 
-    }
-    render() {
-        return (
-            <Navbar color="dark" dark expand="md">
-                <NavbarBrand to="/" tag={Link}>TanqEd Public</NavbarBrand>
+function Navigation({authenticated}){
+    console.log(authenticated);
 
-                <ServicePanel/>
+    return (
+        <Navbar color="dark" dark expand="md">
+            <NavbarBrand to="/" tag={Link}>TanqEd Public</NavbarBrand>
 
-                { this.props.authenticated === true ? <UserPanel/> : <GuestPanel/> }
+            <ServicePanel/>
 
+            { authenticated === true ? <UserPanel/> : <GuestPanel/> }
 
-            </Navbar>
-        )
-    }
+        </Navbar>
+    )
 }
 
 export default Navigation;
