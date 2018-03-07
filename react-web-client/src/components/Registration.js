@@ -3,8 +3,11 @@ import React, { Component } from 'react';
 
 import './css/body.css';
 
+const regUrl = "http://54.201.208.226:8086/reg/user/new";
 
 class Registration extends Component{
+
+
 
     constructor(props) {
         super(props);
@@ -14,6 +17,7 @@ class Registration extends Component{
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleInputChange(event) {
@@ -27,13 +31,31 @@ class Registration extends Component{
     }
 
     handleSubmit(event) {
+        fetch(regUrl, {
+            //mode: 'no-cors',
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: this.state.email,
+                password: this.state.password
+            })
+        }).then( (response) => {
+            return response.json();
+        }).then( (json) =>{
+            console.log(json)
 
+        });
+        event.preventDefault();
     }
+
 
     render(){
 
         return(
-            <form className="content-body align-items-center ">
+            <form className="content-body align-items-center " onSubmit={this.handleSubmit}>
                 <hr/>
                 <div className="form-group row">
                     <div className="col-sm-6 offset-sm-3 align-self-center">
