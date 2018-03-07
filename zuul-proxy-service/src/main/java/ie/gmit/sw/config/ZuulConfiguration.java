@@ -35,6 +35,11 @@ public class ZuulConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:3000")
+                .allowedMethods("GET", "POST","PUT", "DELETE")
+//                .allowedHeaders("header1", "header2", "header3")
+                .exposedHeaders("Access-Control-Allow-Origin")
+                .allowCredentials(false).maxAge(3600);
     }
 }

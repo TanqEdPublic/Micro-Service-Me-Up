@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import './css/body.css';
 
-const regUrl = "http://54.201.208.226:8086/reg/user/new";
+const regUrl = "http://34.208.221.17:8086/reg/user/new";
 
 class Registration extends Component{
 
@@ -32,7 +32,7 @@ class Registration extends Component{
 
     handleSubmit(event) {
         fetch(regUrl, {
-            //mode: 'no-cors',
+            mode: 'no-cors',
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
