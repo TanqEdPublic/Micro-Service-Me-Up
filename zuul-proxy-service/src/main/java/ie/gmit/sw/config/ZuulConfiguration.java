@@ -9,15 +9,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @EnableAsync
 @Import(InetUtils.class)
-@EnableWebMvc
-public class ZuulConfiguration extends WebMvcConfigurerAdapter {
+public class ZuulConfiguration {
     @Value("${server.port}")
     private int port;
 
@@ -33,13 +29,4 @@ public class ZuulConfiguration extends WebMvcConfigurerAdapter {
         return config;
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")
-                .allowedMethods("GET", "POST","PUT", "DELETE")
-//                .allowedHeaders("header1", "header2", "header3")
-                .exposedHeaders("Access-Control-Allow-Origin")
-                .allowCredentials(false).maxAge(3600);
-    }
 }
