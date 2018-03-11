@@ -4,8 +4,7 @@ import React, { Component } from 'react';
 import './css/body.css';
 
 
-//http://ec2-34-208-221-17.us-west-2.compute.amazonaws.com:8086/reg/user/new
-const regUrl = "http://localhost:8091/user/new";
+const regUrl = "http://ec2-34-208-221-17.us-west-2.compute.amazonaws.com:8086/reg/user/new";
 
 class Registration extends Component{
 
@@ -15,7 +14,9 @@ class Registration extends Component{
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            status: '',
+            registered: false
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -33,6 +34,9 @@ class Registration extends Component{
     }
 
     handleSubmit(event) {
+
+        let resStatus = 0;
+
         fetch(regUrl, {
             //mode: 'no-cors',
             method: 'POST',
@@ -45,17 +49,31 @@ class Registration extends Component{
                 password: this.state.password
             })
 
-        }).then((response) => {
-            return response.json();
-            // console.log(response);
-            // console.log(response.json());
-        }).then((json) =>{
-            console.log(json)
+        }).then(res => {
+            resStatus = res.status;
+            return res.json()
+        }).then(res => {
+            switch (resStatus) {
+                case 201:
+                    console.log(res.message);
+                    this.setState({status: res.message});
+                    break;
+                case 409:
+                    console.log(res.message);
+                    this.setState({status: res.message});
+                    break;
+                case 500:
+                    console.log('server error, try again')
+                    this.setState({status: res.message});
+                    break;
+                default:
+                    console.log('unhandled');
+                    this.setState({status: res.message});
+                    break;
+            }});
 
-        });
         event.preventDefault();
     }
-
 
     render(){
 
@@ -80,6 +98,8 @@ class Registration extends Component{
                                className="form-control mb-sm-2 mb-3"
                                id="inlineFormInput"
                                placeholder="Password"/>
+                        <br/>
+                        <h6 className = "errors">{this.state.status}</h6>
                         <hr/>
                         <button className = "col btn btn-dark mr-5">Sign Up! </button>
 
